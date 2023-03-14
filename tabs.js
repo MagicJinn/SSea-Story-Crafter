@@ -34,5 +34,14 @@ function InfoTab() {
         text: "My Github",
         url: http + "github.com/MagicJinn/"
     }]
-
+    for (let i = 0; i < buttons.length; i++) {
+        Button({
+            x: 200,
+            y: (story.height+ 10)*i + 120,
+            img: story,
+            buttonText: buttons[i].text,
+            url: buttons[i].url,
+            tintColor: color(255,225,0)
+        })
+    }
 }
