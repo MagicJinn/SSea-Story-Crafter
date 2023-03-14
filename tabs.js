@@ -8,7 +8,8 @@ function Tabs() {
                 x: 70 + (tab.width + 12) * i,
                 y: 25,
                 buttonText: tabs[i],
-                img: tab
+                img: tab,
+                tintColor: color(255, 255, 0)
             })
             if (currentTab[i]) {
                 for (let i2 = 0; i2 < tabs.length; i2++) {
@@ -19,4 +20,19 @@ function Tabs() {
             }
         }
     }
+}
+
+function InfoTab() {
+    let http = "http://"
+    let buttons = [{
+        text: "Documentation",
+        url: http + "github.com/MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md"
+    }, {
+        text: "Github Repo",
+        url: http + "github.com/MagicJinn/SSea-Story-Crafter"
+    }, {
+        text: "My Github",
+        url: http + "github.com/MagicJinn/"
+    }]
+
 }

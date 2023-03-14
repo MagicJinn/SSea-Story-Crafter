@@ -19,6 +19,7 @@ function draw() {
     imageMode(CORNER)
     image(pages, 0, 0 + tab.height)
     Tabs()
+    if (currentTab[0]) {InfoTab()} else if (currentTab[1]) {}
 }
 
 function resizeInput(input) {
