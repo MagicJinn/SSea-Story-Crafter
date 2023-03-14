@@ -1,7 +1,7 @@
 function Tabs() {
     textAlign(CENTER, CENTER)
     textSize(16)
-    let tabs = ["Docs", "Qualities", "Story", ""]
+    let tabs = ["Info", "Qualities", "Stories"]
     for (let i = 0; i < tabs.length; i++) {
         if (!currentTab[i]) {
             currentTab[i] = Button({
