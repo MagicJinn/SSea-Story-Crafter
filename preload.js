@@ -1,5 +1,6 @@
 function preload() {
-    book = loadImage("book.png")
-    story = loadImage("story.png")
-    tab = loadImage("tab.png")
+    let p = "images/" //Path
+    book = loadImage(p + "book.png")
+    story = loadImage(p + "story.png")
+    tab = loadImage(p + "tab.png")
 }
