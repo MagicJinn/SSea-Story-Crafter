@@ -4,6 +4,7 @@ function Button(input = {}) {
         y, // Y coordinate of the button
         img,
         buttonText = "",
+        tintColor,
     } = input
     let buttonWidth = img.width
     let buttonHeight = img.height
@@ -15,7 +16,7 @@ function Button(input = {}) {
         scaledMouseY < y + buttonHeight / 2 &&
         scaledMouseY > y - buttonHeight / 2
     if (isColliding) { // The button is hovered over
-        tint(255,255,0)
+        tint(tintColor)
         if (mouseIsPressed) { // The button is pressed
             isPressed = true
         }
