@@ -29,19 +29,28 @@ function InfoTab() {
     let g = "github.com/"
     let buttons = [{
         text: "Documentation",
-        url: h + g + "MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md"
+        url: h + g + "MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md",
+        image: gitLogo
     }, {
         text: "Github Repo",
-        url: h + g + "MagicJinn/SSea-Story-Crafter"
+        url: h + g + "MagicJinn/SSea-Story-Crafter",
+        image: gitLogo
     }, {
         text: "My Github",
-        url: h + g + "MagicJinn/"
+        url: h + g + "MagicJinn/",
+        image: gitAvatar
     }]
     for (let i = 0; i < buttons.length; i++) {
+        let x = 600
+        let y = (story.height + 10) * i + 120
         Button({
-            x: 600,
-            y: (story.height + 10) * i + 120,
-            img: story,
+            x: x,
+            y: y,
+            img: Story({
+                img: buttons[i].image,
+                x: x,
+                y: y
+            }),
             buttonText: buttons[i].text,
             url: buttons[i].url,
             tintColor: color(255, 225, 0)
