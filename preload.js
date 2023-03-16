@@ -18,7 +18,4 @@ function preload() {
         Bold: loadFont("styles/Fontin-Bold.ttf"),
         SmallCaps: loadFont("styles/Fontin-SmallCaps.ttf")
     }
-    // Fontin.Regular = loadFont("styles/Fontin-Regular.ttf")
-    // Fontin.Bold = loadFont("styles/Fontin-Bold.ttf")
-    // Fontin.SmallCaps = loadFont("styles/Fontin-SmallCaps.ttf")
 }
