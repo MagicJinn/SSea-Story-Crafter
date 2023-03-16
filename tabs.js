@@ -23,20 +23,21 @@ function Tabs() {
 }
 
 function InfoTab() {
-    let http = "http://"
+    let h = "http://"
+    let g = "github.com/"
     let buttons = [{
         text: "Documentation",
-        url: http + "github.com/MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md"
+        url: h + g + "MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md"
     }, {
         text: "Github Repo",
-        url: http + "github.com/MagicJinn/SSea-Story-Crafter"
+        url: h + g + "MagicJinn/SSea-Story-Crafter"
     }, {
         text: "My Github",
-        url: http + "github.com/MagicJinn/"
+        url: h + g + "MagicJinn/"
     }]
     for (let i = 0; i < buttons.length; i++) {
         Button({
-            x: 200,
+            x: 600,
             y: (story.height+ 10)*i + 120,
             img: story,
             buttonText: buttons[i].text,
