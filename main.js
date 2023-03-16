@@ -3,8 +3,6 @@ let currentTab = []
 function setup() {
     createCanvas(book.width, book.height + tab.height)
     Scaling()
-    textFont(Fontin)
-    textStyle(BOLD)
     noSmooth()
     UI(SETUP)
 }
