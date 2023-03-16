@@ -7,7 +7,7 @@ function preload() {
     tab = loadImage(p + "tab" + e)
     frame = loadImage(p + "frame" + e)
 
-    gitAvatar = loadImage(p + "gitAvatar" + e)
+    gitAvatar = loadImage(p + "logos/gitAvatar" + e)
     gitLogo = loadImage(p + "logos/gitLogo" + e)
 
 
