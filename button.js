@@ -12,7 +12,6 @@ function Button(input = {}) {
         buttonHeight = img.height
     } = input
 
-
     let isPressed = false
     let isColliding = // "collision" detection
         scaledMouseX < x + buttonWidth / 2 &&
