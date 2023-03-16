@@ -1,4 +1,5 @@
 var linkDelay = 0
+
 function Button(input = {}) {
     let {
         x, // X coordinate of the button
@@ -6,10 +7,11 @@ function Button(input = {}) {
         img,
         buttonText = "",
         tintColor,
-        url
+        url,
+        buttonWidth = img.width,
+        buttonHeight = img.height
     } = input
-    let buttonWidth = img.width
-    let buttonHeight = img.height
+
 
     let isPressed = false
     let isColliding = // "collision" detection
@@ -25,14 +27,14 @@ function Button(input = {}) {
     }
     // Responsible for rendering the image
     imageMode(CENTER)
-    image(img, x, y) // Renders the image
+    image(img, x, y, buttonWidth, buttonHeight) // Renders the image
     noTint()
     // Responsible for rendering text
     textAlign(CENTER, CENTER)
     fill(0)
     text(buttonText, x, y) // Renders text
-    if(url !== undefined&&isPressed && frameCount - linkDelay > 15){
-        window.open(url,"_blank")
+    if (url !== undefined && isPressed && frameCount - linkDelay > 15) {
+        window.open(url, "_blank")
         linkDelay = frameCount
         scaledMouseX = scaledMouseY = 0
     }
