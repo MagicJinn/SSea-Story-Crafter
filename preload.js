@@ -1,3 +1,5 @@
+var Fontin
+
 function preload() {
     let p = "images/" //Path
     let e = ".png" // Extension
@@ -7,9 +9,16 @@ function preload() {
     tab = loadImage(p + "tab" + e)
     frame = loadImage(p + "frame" + e)
 
-    gitAvatar = loadImage(p + "logos/gitAvatar" + e)
-    gitLogo = loadImage(p + "logos/gitLogo" + e)
+    gitAvatar = loadImage(p + "logos/gitAvatar" + e) // http://avatars.githubusercontent.com/u/72989508
+    gitLogo = loadImage(p + "logos/gitLogo" + e) // http://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
 
 
-    Fontin = loadFont("styles/Fontin-SmallCaps.ttf") // http://eljbris.com/fontin.html
+    Fontin = { // http://eljbris.com/fontin.html
+        Regular: loadFont("styles/Fontin-Regular.ttf"),
+        Bold: loadFont("styles/Fontin-Bold.ttf"),
+        SmallCaps: loadFont("styles/Fontin-SmallCaps.ttf")
+    }
+    // Fontin.Regular = loadFont("styles/Fontin-Regular.ttf")
+    // Fontin.Bold = loadFont("styles/Fontin-Bold.ttf")
+    // Fontin.SmallCaps = loadFont("styles/Fontin-SmallCaps.ttf")
 }
