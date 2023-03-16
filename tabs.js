@@ -2,13 +2,15 @@ function Tabs() {
     textAlign(CENTER, CENTER)
     textSize(16)
     let tabs = ["Info", "Qualities", "Stories"]
+    let buttonWidth = 1.2
     for (let i = 0; i < tabs.length; i++) {
         if (!currentTab[i]) {
             currentTab[i] = Button({
-                x: 70 + (tab.width + 12) * i,
+                x: 70 + ((tab.width + 12) * buttonWidth) * i,
                 y: 25,
                 buttonText: tabs[i],
                 img: tab,
+                buttonWidth: tab.width * buttonWidth,
                 tintColor: color(255, 255, 0)
             })
             if (currentTab[i]) {
@@ -38,11 +40,11 @@ function InfoTab() {
     for (let i = 0; i < buttons.length; i++) {
         Button({
             x: 600,
-            y: (story.height+ 10)*i + 120,
+            y: (story.height + 10) * i + 120,
             img: story,
             buttonText: buttons[i].text,
             url: buttons[i].url,
-            tintColor: color(255,225,0)
+            tintColor: color(255, 225, 0)
         })
     }
 }
