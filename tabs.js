@@ -1,6 +1,7 @@
 function Tabs() {
     textAlign(CENTER, CENTER)
     textSize(16)
+    textFont(Fontin.SmallCaps)
     let tabs = ["Info", "Qualities", "Stories"]
     let buttonWidth = 1.2
     for (let i = 0; i < tabs.length; i++) {
@@ -25,31 +26,36 @@ function Tabs() {
 }
 
 function InfoTab() {
+    textAlign(RIGHT)
+    textSize(26)
+    textFont(Fontin.SmallCaps)
+    text("Information", 580, 65)
+
     let h = "http://"
     let g = "github.com/"
     let buttons = [{
-        text: "Documentation",
+        title: "Documentation",
         url: h + g + "MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md",
         image: gitLogo
     }, {
-        text: "Github Repo",
+        title: "Source Code",
         url: h + g + "MagicJinn/SSea-Story-Crafter",
         image: gitLogo
     }, {
-        text: "My Github",
+        title: "My Github",
         url: h + g + "MagicJinn/",
         image: gitAvatar
     }]
     for (let i = 0; i < buttons.length; i++) {
         let x = 600
-        let y = (story.height + 10) * i + 120
+        let y = (story.height + 10) * i + 160
         Button({
             x: x,
             y: y,
             img: Story({
-                img: buttons[i].image
+                img: buttons[i].image,
+                title: buttons[i].title
             }),
-            buttonText: buttons[i].text,
             url: buttons[i].url,
             tintColor: color(255, 225, 0)
         })

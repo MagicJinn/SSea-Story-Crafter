@@ -16,13 +16,19 @@ function UI(mode) {
 
 function Story(input = {}) {
     let {
-        img
+        img,
+        title = "Title (required)",
+        storyText
     } = input
     let w = story.width
     let h = story.height
     let combinedImage = createImage(w, h)
     combinedImage.copy(img, 0, 0, img.width, img.height, 12, 7, 51, 58)
     combinedImage.copy(story, 0, 0, w, h, 0, 0, w, h)
-
+    let textLayer = createGraphics(w, h)
+    textLayer.textFont(Fontin.Bold)
+    textLayer.textSize(18)
+    textLayer.text(title, 65, 25)
+    combinedImage.copy(textLayer, 0, 0, w, h, 0, 0, w, h);
     return combinedImage
 }
