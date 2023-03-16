@@ -47,9 +47,7 @@ function InfoTab() {
             x: x,
             y: y,
             img: Story({
-                img: buttons[i].image,
-                x: x,
-                y: y
+                img: buttons[i].image
             }),
             buttonText: buttons[i].text,
             url: buttons[i].url,

@@ -14,12 +14,9 @@ function UI(mode) {
     }
 }
 
-// let story
 function Story(input = {}) {
     let {
-        img,
-        x,
-        y
+        img
     } = input
     let w = story.width
     let h = story.height
