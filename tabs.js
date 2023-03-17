@@ -26,10 +26,13 @@ function Tabs() {
 }
 
 function InfoTab() {
-    textAlign(RIGHT)
+    textAlign(LEFT)
     textSize(26)
     textFont(Fontin.SmallCaps)
-    text("Information", 580, 65)
+    text("Information", 420, 60)
+    textSize(15)
+    textFont(Fontin.Regular)
+    text("Useful information to get you started, learn more\nabout the project, or contribute.",425,95)
 
     let h = "http://"
     let g = "github.com/"
@@ -39,10 +42,12 @@ function InfoTab() {
         image: gitLogo
     }, {
         title: "Source Code",
+        text: "Take a look at the source, make bug reports and suggest improvements!",
         url: h + g + "MagicJinn/SSea-Story-Crafter",
         image: gitLogo
     }, {
         title: "My Github",
+        text: "Check out my other projects",
         url: h + g + "MagicJinn/",
         image: gitAvatar
     }]

@@ -23,8 +23,8 @@ function Story(input = {}) {
     let w = story.width
     let h = story.height
     let combinedImage = createImage(w, h)
-    combinedImage.copy(img, 0, 0, img.width, img.height, 12, 7, 51, 58)
     combinedImage.copy(story, 0, 0, w, h, 0, 0, w, h)
+    combinedImage.copy(img, 0, 0, img.width, img.height, 12, 7, 40, 52)
     let textLayer = createGraphics(w, h)
     textLayer.textFont(Fontin.Bold)
     textLayer.textSize(18)
