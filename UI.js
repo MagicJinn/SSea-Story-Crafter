@@ -4,11 +4,11 @@ const DRAW = 2
 function UI(mode) {
     switch (mode) {
         case SETUP: // Only rendered once, can be overwritten by anything
-            image(book, 0, 0 + tab.height)
+            image(book, 0, tab.height)
             break;
         case DRAW: // Always rendered
             imageMode(CORNER)
-            image(pages, 0, 0 + tab.height)
+            image(pages, 0, tab.height)
             Tabs()
             break;
     }
