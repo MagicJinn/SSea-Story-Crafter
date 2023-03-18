@@ -10,6 +10,11 @@ function UI(mode) {
             imageMode(CORNER)
             image(pages, 0, tab.height)
             Tabs()
+            if (!currentTab.every((val, i) => val === previousTab[i])) {
+                removeElements()
+                previousTab = currentTab.slice()
+                domSetup = false
+            }
             break;
     }
 }
