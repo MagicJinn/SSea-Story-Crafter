@@ -32,7 +32,7 @@ function InfoTab() {
     text("Information", 420, 60)
     textSize(15)
     textFont(Fontin.Regular)
-    text("Useful information to get you started, learn more\nabout the project, or contribute.",425,95)
+    text("Useful information to get you started, learn more\nabout the project, or contribute.", 425, 95)
 
     let h = "http://"
     let g = "github.com/"
