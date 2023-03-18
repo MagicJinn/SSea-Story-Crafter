@@ -16,10 +16,11 @@ function UI(mode) {
 
 function Story(input = {}) {
     let {
-        img,
-        title = "Title (required)",
-        storyText
+        img = placeholder.default,
+            title = "Title (required)",
+            storyText
     } = input
+
     let w = story.width
     let h = story.height
     let combinedImage = createImage(w, h)
