@@ -3,7 +3,7 @@ function saveQuality(input = {}) {
     let { // This allows for custom inputs while also having default values
         RelationshipCapable = false, // No effect, must be false
             OwnerName = "StoryCrafter", // No effect, but this makes it easy to detect mods made with StoryCrafter
-            Description = false, // Description for the quality
+            Description = null, // Description for the quality
             Image = "comingsoon", // Name of the image located in "%appdata%\..\LocalLow\Failbetter Games\Sunless Sea\images\sn\icons", without the extension or size indicator (small/gaz)
             Notes = null, // No effects, used for notes
             Tag = null, // Usually unused, useful for organising qualities
@@ -77,7 +77,7 @@ function saveQuality(input = {}) {
         Id: Id
     }
     if (q.Name == undefined || q.Id == undefined) {
-        print("test")
+        console.log("Seems like you've left important qualities blank. Please recheck your inputs.")
     } else {
         createJson(q, "qualities")
     }
