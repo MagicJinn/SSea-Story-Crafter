@@ -6,6 +6,7 @@ function preload() {
     story = loadImage(p + "story" + e)
     tab = loadImage(p + "tab" + e)
     frame = loadImage(p + "frame" + e)
+    paperstack = loadImage(p + "paperstackgaz" + e)
 
     let cms = "comingsoon/comingsoon"
     placeholder = {
