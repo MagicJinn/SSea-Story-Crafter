@@ -26,6 +26,8 @@ function Tabs() {
 }
 
 function InfoTab() {
+    imageGaz(paperstack)
+
     textAlign(LEFT)
     textSize(26)
     textFont(Fontin.SmallCaps)

@@ -38,3 +38,7 @@ function Story(input = {}) {
     combinedImage.copy(textLayer, 0, 0, w, h, 0, 0, w, h);
     return combinedImage
 }
+
+function imageGaz(input = placeholder.gaz){
+    image(input,200,310)
+}
