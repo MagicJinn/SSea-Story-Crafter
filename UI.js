@@ -5,6 +5,8 @@ function UI(mode) {
     switch (mode) {
         case SETUP: // Only rendered once, can be overwritten by anything
             image(book, 0, tab.height)
+            Tabs()
+            currentTab[0] = true
             break;
         case DRAW: // Always rendered
             imageMode(CORNER)
