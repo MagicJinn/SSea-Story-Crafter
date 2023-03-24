@@ -14,26 +14,7 @@ function draw() {
     if (currentTab[0]) {
         InfoTab()
     } else if (currentTab[1]) {
-        // if (!domSetup) {
-        //     let button = []
-        //     let div = []
-        //     for (let i = 0; i < buttonAmount; i++) {
-        //         button[i] = createButton("test")
-        //         button[i].mousePressed(function () {
-        //             saveQuality({
-        //                 OwnerName: "MyMod",
-        //                 Description: "This is a new quality",
-        //                 Image: "new_quality_icon",
-        //                 Name: "New Quality",
-        //                 Id: 6000000
-        //             })
-        //         })
-        //         if (i % 2 == 1) {
-        //             div[i] = createDiv("Another one")
-        //         }
-        //         domSetup = true
-        //     }
-        // }
+
     }
 }
 
