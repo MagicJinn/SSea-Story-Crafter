@@ -13,9 +13,8 @@ function UI(mode) {
             image(pages, 0, tab.height)
             Tabs()
             if (!currentTab.every((val, i) => val === previousTab[i])) {
-                removeElements()
                 previousTab = currentTab.slice()
-                domSetup = false
+                refreshDom()
             }
             break;
     }
@@ -46,4 +45,9 @@ function Story(input = {}) {
 
 function imageGaz(input = placeholder.gaz){
     image(input,200,310)
+}
+
+function refreshDom(){ // Removes and allows for the recreation of the DOM's
+    removeElements()
+    domSetup = false
 }
