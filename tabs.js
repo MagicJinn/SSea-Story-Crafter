@@ -40,16 +40,17 @@ function InfoTab() {
     let g = "github.com/"
     let buttons = [{
         title: "Documentation",
-        url: h + g + "MagicJinn/SSea-Story-Crafter/blob/main/Documentation.md",
+        teaser: "Documentation about the usage and about the code.",
+        url: h + g + "MagicJinn/SSea-Story-Crafter/blob/main/docs/Usage.md",
         image: gitLogo
     }, {
         title: "Source Code",
-        text: "Take a look at the source, make bug reports and suggest improvements!",
+        teaser: "Take a look at the source, make bug reports and suggest improvements!",
         url: h + g + "MagicJinn/SSea-Story-Crafter",
         image: gitLogo
     }, {
         title: "My Github",
-        text: "Check out my other projects",
+        teaser: "Check out my other projects.",
         url: h + g + "MagicJinn/",
         image: gitAvatar
     }]
@@ -61,7 +62,8 @@ function InfoTab() {
             y: y,
             img: Story({
                 img: buttons[i].image,
-                title: buttons[i].title
+                title: buttons[i].title,
+                teaser: buttons[i].teaser
             }),
             url: buttons[i].url,
             tintColor: color(255, 225, 0)

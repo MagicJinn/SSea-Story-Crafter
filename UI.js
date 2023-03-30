@@ -25,7 +25,7 @@ function Story(input = {}) {
     let {
         img = placeholder.default,
             title = "Title (required)",
-            storyText
+            teaser = ""
     } = input
 
     let w = story.width
@@ -37,6 +37,9 @@ function Story(input = {}) {
     textLayer.textFont(Fontin.Bold)
     textLayer.textSize(18)
     textLayer.text(title, 65, 25)
+    textLayer.textFont(Fontin.Regular)
+    textLayer.textSize(15)
+    textLayer.text(teaser,65,44,290)
     combinedImage.copy(textLayer, 0, 0, w, h, 0, 0, w, h);
     return combinedImage
 }
