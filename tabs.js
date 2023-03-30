@@ -70,3 +70,5 @@ function InfoTab() {
         })
     }
 }
+
+function QualityTab() {}
