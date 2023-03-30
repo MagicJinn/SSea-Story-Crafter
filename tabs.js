@@ -71,4 +71,100 @@ function InfoTab() {
     }
 }
 
-function QualityTab() {}
+var quality = {
+    Id: "",
+    Name: "",
+    Description: "",
+    Image: "comingsoon",
+    Notes: null,
+    Tag: null,
+    Cap: null,
+    UsePyramidNumbers: false,
+    PyramidNumberIncreaseLimit: 50,
+    AvailableAt: null
+}
+var meta = {
+    advancedMode: false, // Whether advancedMode is activated
+    EnhancementsAmount: 0 // How many fields you have for Enhancements
+}
+let refresh = false
+
+function QualityTab() {
+    if (!domSetup) { // Create all buttons.
+        advancedMode = createCheckbox("🔧 Advanced Mode", meta.advancedMode)
+
+        createSpan("Id: ")
+        Id = createInput(quality.Id)
+        createDiv()
+
+        createSpan("Name: ")
+        Name = createInput(quality.Name)
+        createDiv()
+
+        createSpan("Description: ")
+        Description = createInput(quality.Description)
+        createDiv()
+
+        createSpan("Image: ")
+        Image = createInput(quality.Image)
+        createDiv()
+
+        if (meta.advancedMode) {
+            createSpan("🔧 Notes: ")
+            Notes = createInput(quality.Notes)
+            createDiv()
+
+            createSpan("🔧 Tag: ")
+            Tag = createInput(quality.Tag)
+            createDiv()
+
+            createSpan("🔧 Cap: ")
+            Cap = createInput(quality.Cap)
+            createDiv()
+
+            createSpan()
+            UsePyramidNumbers = createCheckbox("🔧 UsePyramidNumbers", quality.UsePyramidNumbers)
+            createDiv()
+            if (quality.UsePyramidNumbers) {
+                createSpan("🔧PyramidNumberIncreaseLimit: ")
+                PyramidNumberIncreaseLimit = createInput(quality.PyramidNumberIncreaseLimit)
+                createDiv()
+            }
+        }
+
+        // Button to create the Json
+        createP()
+        finishButton = createButton("Create Json")
+        finishButton.mouseClicked(function () {
+            refresh = true
+            save = true
+        })
+        domSetup = true
+    }
+
+    // Check for changes that require a refresh
+    advancedMode.changed(function () {
+        meta.advancedMode = !meta.advancedMode // Switches the boolean for the checkbox
+        refresh = true
+    })
+    try {
+        UsePyramidNumbers.changed(function () {
+            quality.UsePyramidNumbers = !quality.UsePyramidNumbers
+            refresh = true
+        })
+    } catch (error) {
+        console.log("I need to listen for changes of a checkbox, but the checkbox technically doesn't exist yet. Hence this error. Feel free to ignore it.")
+    }
+
+    if (refresh == true) {
+        quality.Name = Name.value()
+        quality.Description = Description.value()
+        refreshDom() // Refresh all DOMs
+        refresh = false
+    }
+
+    if (save == true) {
+        SaveQuality(quality)
+        save = false
+    }
+}
