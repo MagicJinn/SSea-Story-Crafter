@@ -9,7 +9,7 @@ function Button(input = {}) {
         tintColor,
         url,
         buttonWidth = img.width,
-        buttonHeight = img.height
+        buttonHeight = img.height,
     } = input
 
     let isPressed = false
