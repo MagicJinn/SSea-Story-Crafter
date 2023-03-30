@@ -1,5 +1,3 @@
-var linkDelay = 0
-
 function Button(input = {}) {
     let {
         x, // X coordinate of the button
@@ -32,10 +30,17 @@ function Button(input = {}) {
     textAlign(CENTER, CENTER)
     fill(0)
     text(buttonText, x, y) // Renders text
-    if (url !== undefined && isPressed && frameCount - linkDelay > 15) {
+    if (isPressed) {
+        OpenUrl(url)
+    }
+    return isPressed // Returns true or false
+}
+
+var linkDelay = 0
+function OpenUrl(url){
+    if (url !== undefined && frameCount - linkDelay > 15) {
         window.open(url, "_blank")
         linkDelay = frameCount
         scaledMouseX = scaledMouseY = 0
     }
-    return isPressed // Returns true or false
 }
