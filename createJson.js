@@ -1,4 +1,4 @@
-function saveQuality(input = {}) {
+function SaveQuality(input = {}) {
     // When uncertain about a fields function, check the docs.
     let { // This allows for custom inputs while also having default values
         RelationshipCapable = false, // No effect, must be false
@@ -79,11 +79,15 @@ function saveQuality(input = {}) {
     if (q.Name == undefined || q.Id == undefined) {
         console.log("Seems like you've left important qualities blank. Please recheck your inputs.")
     } else {
-        createJson(q, "qualities")
+        CreateJson(q, "qualities")
     }
 }
 
-function createJson(input, name) {
+function SaveStory(){
+    CreateJson(s,"events")
+}
+
+function CreateJson(input, name) {
     // Json magic that I do not understand
     const qualitiesArray = [input]
     jsonString = JSON.stringify(qualitiesArray, null, 2)
