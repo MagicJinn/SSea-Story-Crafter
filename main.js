@@ -14,16 +14,6 @@ function draw() {
     if (currentTab[0]) {
         InfoTab()
     } else if (currentTab[1]) {
-
-    }
-}
-
-let buttonAmount = 1
-
-function mouseClicked() {
-    if (currentTab[1] == true) {
-        domSetup = false
-        buttonAmount++
-        removeElements()
+        QualityTab()
     }
 }
