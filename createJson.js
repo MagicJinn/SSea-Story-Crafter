@@ -77,7 +77,7 @@ function SaveQuality(input = {}) {
         Id: Id
     }
     if (q.Name == undefined || q.Id == undefined) {
-        console.log("Seems like you've left important qualities blank. Please recheck your inputs.")
+        alert("Seems like you've left important qualities blank. Please recheck your inputs.")
     } else {
         CreateJson(q, "qualities")
     }
