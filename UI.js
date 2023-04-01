@@ -14,40 +14,59 @@ function UI(mode) {
             Tabs()
             if (!currentTab.every((val, i) => val === previousTab[i])) {
                 previousTab = currentTab.slice()
-                refreshDom()
+                RefreshDom()
             }
             break;
     }
 }
 
+let combinedImage = []
+
 function Story(input = {}) {
     let {
         img = placeholder.default,
             title = "Title (required)",
-            teaser = ""
+            teaser = "",
+            id
     } = input
 
     let w = story.width
     let h = story.height
-    let combinedImage = createImage(w, h)
-    combinedImage.copy(story, 0, 0, w, h, 0, 0, w, h)
-    combinedImage.copy(img, 0, 0, img.width, img.height, 12, 7, 40, 52)
-    let textLayer = createGraphics(w, h)
-    textLayer.textFont(Fontin.Bold)
-    textLayer.textSize(18)
-    textLayer.text(title, 65, 25)
-    textLayer.textFont(Fontin.Regular)
-    textLayer.textSize(15)
-    textLayer.text(teaser,65,44,290)
-    combinedImage.copy(textLayer, 0, 0, w, h, 0, 0, w, h);
-    return combinedImage
+    if (combinedImage[id] == undefined) {
+        combinedImage[id] = createImage(w, h)
+        combinedImage[id].copy(story, 0, 0, w, h, 0, 0, w, h)
+        combinedImage[id].copy(img, 0, 0, img.width, img.height, 12, 7, 40, 52)
+        let textLayer = createGraphics(w, h)
+        textLayer.textFont(Fontin.Bold)
+        textLayer.textSize(18)
+        textLayer.text(title, 65, 25)
+        textLayer.textFont(Fontin.Regular)
+        textLayer.textSize(15)
+        textLayer.text(teaser, 65, 44, 290)
+        combinedImage[id].copy(textLayer, 0, 0, w, h, 0, 0, w, h)
+    }
+    return combinedImage[id]
 }
 
-function imageGaz(input = placeholder.gaz){
-    image(input,200,310)
+function PageTitle(input = "Coming Soon...") {
+    textSize(26)
+    textFont(Fontin.SmallCaps)
+    textAlign(LEFT, TOP)
+    text(input, 420, 50, 350)
 }
 
-function refreshDom(){ // Removes and allows for the recreation of the DOM's
+function PageDescription(input = "Nothing awaits you. Time to leave port?") {
+    textSize(16)
+    textFont(Fontin.Regular)
+    textAlign(LEFT, TOP)
+    text(input, 425, 80, 350)
+}
+
+function ImageGaz(input = placeholder.gaz) {
+    image(input, 200, 310)
+}
+
+function RefreshDom() { // Removes and allows for the recreation of the DOM's
     removeElements()
     domSetup = false
 }
