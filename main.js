@@ -3,8 +3,8 @@ let previousTab = []
 
 function setup() {
     createCanvas(book.width, book.height + tab.height)
+    frameRate(30)
     Scaling()
-    noSmooth()
     UI(SETUP)
 }
 var domSetup = false
@@ -15,5 +15,7 @@ function draw() {
         InfoTab()
     } else if (currentTab[1]) {
         QualityTab()
+    } else if (currentTab[2]){
+        StoryTab()
     }
 }
