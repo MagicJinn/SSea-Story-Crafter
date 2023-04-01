@@ -89,7 +89,7 @@ var meta = {
     EnhancementsAmount: 0 // How many fields you have for Enhancements
 }
 let refresh = false
-
+let save = false
 function QualityTab() {
     if (!domSetup) { // Create all buttons.
         advancedMode = createCheckbox("🔧 Advanced Mode", meta.advancedMode)
@@ -166,7 +166,7 @@ function QualityTab() {
         }
     }
 
-    if (refresh == true) {
+    if (refresh) {
         quality.Id = Id.value()
         quality.Name = Name.value()
         quality.Description = Description.value()
@@ -191,7 +191,7 @@ function QualityTab() {
         refresh = false
     }
 
-    if (save == true) {
+    if (save) {
         SaveQuality(quality)
         save = false
     }
