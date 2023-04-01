@@ -83,8 +83,9 @@ function SaveQuality(input = {}) {
     }
 }
 
-function SaveStory(){
-    CreateJson(s,"events")
+function SaveStory(input = {}) {
+    let {} = input
+    CreateJson(s, "events")
 }
 
 function CreateJson(input, name) {
