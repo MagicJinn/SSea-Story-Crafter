@@ -124,29 +124,29 @@ function QualityTab() {
         Nature.selected(quality.Nature)
         createDiv()
 
-        if (quality.Nature == "Status") {
-            createSpan("Category: ")
-            CategoryStatus = createSelect()
-            CategoryStatus.option("Unspecified")
-            CategoryStatus.option("Circumstance")
-            CategoryStatus.option("Story")
-            CategoryStatus.option("Progress")
-            CategoryStatus.option("Quest")
-            CategoryStatus.option("Accomplishment")
-            CategoryStatus.option("BasicAbility")
-            CategoryStatus.option("SpecificAbility")
-            CategoryStatus.option("MinorLateral")
-            CategoryStatus.selected(quality.Category)
-            createDiv()
-        } else if (quality.Nature == "Thing") {
-            createSpan("Category: ")
-            CategoryThing = createSelect()
-            CategoryThing.option("Unspecified")
-            CategoryThing.option("Companion")
-            CategoryThing.option("Goods")
-            CategoryThing.option("Ship")
-            CategoryThing.option("Curiosity")
-            CategoryThing.selected(quality.Category)
+        if (quality.Nature !== "Unspecified") {
+            createSpan("└ Category: ")
+            if (quality.Nature == "Status") {
+                CategoryStatus = createSelect()
+                CategoryStatus.option("Unspecified")
+                CategoryStatus.option("Circumstance")
+                CategoryStatus.option("Story")
+                CategoryStatus.option("Progress")
+                CategoryStatus.option("Quest")
+                CategoryStatus.option("Accomplishment")
+                CategoryStatus.option("BasicAbility")
+                CategoryStatus.option("SpecificAbility")
+                CategoryStatus.option("MinorLateral")
+                CategoryStatus.selected(quality.Category)
+            } else if (quality.Nature == "Thing") {
+                CategoryThing = createSelect()
+                CategoryThing.option("Unspecified")
+                CategoryThing.option("Companion")
+                CategoryThing.option("Goods")
+                CategoryThing.option("Ship")
+                CategoryThing.option("Curiosity")
+                CategoryThing.selected(quality.Category)
+            }
             createDiv()
         }
 
@@ -169,7 +169,7 @@ function QualityTab() {
             createDiv()
 
             if (quality.UsePyramidNumbers) {
-                createSpan("└🔧PyramidNumberIncreaseLimit: ")
+                createSpan("└ PyramidNumberIncreaseLimit: ")
                 PyramidNumberIncreaseLimit = createInput(quality.PyramidNumberIncreaseLimit)
                 createDiv()
             }
@@ -191,7 +191,7 @@ function QualityTab() {
             createDiv()
 
             if (quality.IsSlot) {
-                createSpan("└🔧AssignToSlot")
+                createSpan("└ AssignToSlot")
                 AssignToSlot = createInput(quality.AssignToSlot)
                 createDiv()
             }
