@@ -81,7 +81,8 @@ var quality = {
     Cap: null,
     UsePyramidNumbers: false,
     PyramidNumberIncreaseLimit: 50,
-    AvailableAt: null
+    AvailableAt: null,
+    Ordering: 0
 }
 var meta = {
     advancedMode: false, // Whether advancedMode is activated
@@ -130,6 +131,13 @@ function QualityTab() {
                 PyramidNumberIncreaseLimit = createInput(quality.PyramidNumberIncreaseLimit)
                 createDiv()
             }
+
+            createSpan("🔧AvalableAt: ")
+            AvailableAt = createInput(quality.AvailableAt)
+            createDiv()
+
+            createSpan("🔧Ordering: ")
+            Ordering = createInput(quality.Ordering)
         }
 
         // Button to create the Json
@@ -147,18 +155,38 @@ function QualityTab() {
         meta.advancedMode = !meta.advancedMode // Switches the boolean for the checkbox
         refresh = true
     })
-    try {
-        UsePyramidNumbers.changed(function () {
-            quality.UsePyramidNumbers = !quality.UsePyramidNumbers
-            refresh = true
-        })
-    } catch (error) {
-        console.log("I need to listen for changes of a checkbox, but the checkbox technically doesn't exist yet. Hence this error. Feel free to ignore it.")
+    if (meta.advancedMode) {
+        try {
+            UsePyramidNumbers.changed(function () {
+                quality.UsePyramidNumbers = !quality.UsePyramidNumbers
+                refresh = true
+            })
+        } catch (error) {
+            console.log("I need to listen for changes of a checkbox, but the checkbox technically doesn't exist yet. Hence this error. Feel free to ignore it.")
+        }
     }
 
     if (refresh == true) {
+        quality.Id = Id.value()
         quality.Name = Name.value()
         quality.Description = Description.value()
+        quality.Image = Image.value()
+        if (meta.advancedMode) {
+            try {
+                quality.Notes = Notes.value()
+                quality.Tag = Tag.value()
+                quality.Cap = Cap.value()
+                // quality.UsePyramidNumbers is saved somewhere else
+                if (quality.UsePyramidNumbers) {
+                    quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
+                }
+                quality.AvailableAt = AvailableAt.value()
+                quality.Ordering = Ordering.value()
+            } catch (error) {
+                console.log("Trying to save values that don't exist yet. Ignore this error too")
+            }
+        }
+
         refreshDom() // Refresh all DOMs
         refresh = false
     }
