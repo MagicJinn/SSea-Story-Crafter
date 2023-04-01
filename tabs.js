@@ -67,8 +67,8 @@ function InfoTab() {
 }
 
 var quality = {
-    Id: "",
-    Name: "",
+    Id: null,
+    Name: null,
     Description: "",
     Image: "comingsoon",
     Notes: null,
@@ -97,11 +97,11 @@ function QualityTab() {
     PageDescription()
     if (!domSetup) { // Create all buttons.
         createSpan("Id: ")
-        Id = createInput(quality.Id)
+        Id = createInput(QuoteConvert(quality.Id))
         createDiv()
 
         createSpan("Name: ")
-        Name = createInput(quality.Name)
+        Name = createInput(QuoteConvert(quality.Name))
         createDiv()
 
         createSpan("Description: ")
@@ -153,15 +153,15 @@ function QualityTab() {
         advancedMode = createCheckbox("🔧 Advanced Mode", meta.advancedMode)
         if (meta.advancedMode) {
             createSpan("🔧 Notes: ")
-            Notes = createInput(quality.Notes)
+            Notes = createInput(QuoteConvert(quality.Notes))
             createDiv()
 
             createSpan("🔧 Tag: ")
-            Tag = createInput(quality.Tag)
+            Tag = createInput(QuoteConvert(quality.Tag))
             createDiv()
 
             createSpan("🔧 Cap: ")
-            Cap = createInput(quality.Cap)
+            Cap = createInput(QuoteConvert(quality.Cap))
             createDiv()
 
             createSpan()
@@ -174,8 +174,8 @@ function QualityTab() {
                 createDiv()
             }
 
-            createSpan("🔧AvalableAt: ")
-            AvailableAt = createInput(quality.AvailableAt)
+            createSpan("🔧AvailableAt: ")
+            AvailableAt = createInput(QuoteConvert(quality.AvailableAt))
             createDiv()
 
             createSpan("🔧Ordering: ")
@@ -183,7 +183,7 @@ function QualityTab() {
             createDiv()
 
             createSpan("🔧LimitedToArea: ")
-            LimitedToArea = createInput(quality.LimitedToArea)
+            LimitedToArea = createInput(QuoteConvert(quality.LimitedToArea))
             createDiv()
 
             createSpan()
@@ -192,8 +192,17 @@ function QualityTab() {
 
             if (quality.IsSlot) {
                 createSpan("└ AssignToSlot")
-                AssignToSlot = createInput(quality.AssignToSlot)
+                AssignToSlot = createInput(QuoteConvert(quality.AssignToSlot))
                 createDiv()
+            }
+
+            createSpan("🔧Enhancements: (WORK IN PROGRESS)")
+            EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
+            EnhancementsAmount.size(40,22)
+            createDiv()
+
+            for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                createDiv(`└ Enhancement ${i+1}: `)
             }
         }
 
@@ -238,42 +247,66 @@ function QualityTab() {
                 quality.IsSlot = !quality.IsSlot
                 refresh = true
             })
+            EnhancementsAmount.changed(function () {
+                refresh = true
+            })
         } catch (error) {
             console.log("I need to listen for changes of a checkbox, but the checkbox technically doesn't exist yet. Hence this error. Feel free to ignore it.")
         }
     }
 
     if (refresh) {
-        quality.Id = Id.value()
-        quality.Name = Name.value()
+        quality.Id = NullConvert(Id.value())
+        quality.Name = NullConvert(Name.value())
         quality.Description = Description.value()
         quality.Image = Image.value()
         quality.Nature = Nature.value()
-        if (Nature == "Status") {
-            quality.Category = CategoryStatus.value()
-        } else if (Nature == "Thing") {
-            quality.Category = CategoryThing.value()
+        try {
+            if (Nature.value() == "Status") {
+                quality.Category = CategoryStatus.value()
+            } else if (Nature.value() == "Thing") {
+                quality.Category = CategoryThing.value()
+            }
+        } catch (error) {
+            console.log(console.log("Trying to save values that don't exist yet. Ignore this error too"))
         }
 
-        if (meta.advancedMode) {
+        if (meta.advancedMode) { // No code in the catch block. Cry about it.
             try {
                 quality.Notes = Notes.value()
+            } catch (error) {}
+            try {
                 quality.Tag = Tag.value()
+            } catch (error) {}
+            try {
                 quality.Cap = Cap.value()
-                // quality.UsePyramidNumbers is saved somewhere else
-                if (quality.UsePyramidNumbers) {
+            } catch (error) {}
+            // quality.UsePyramidNumbers is saved somewhere else
+            if (quality.UsePyramidNumbers) {
+                try {
                     quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
-                }
-                if (quality.IsSlot) {
-                    quality.AssignToSlot = AssignToSlot.value()
-                }
-                quality.AvailableAt = AvailableAt.value()
-                quality.Ordering = Ordering.value()
-            } catch (error) {
-                console.log("Trying to save values that don't exist yet. Ignore this error too")
+                } catch (error) {}
             }
+            // quality.IsSlot is saved somewhere else
+            if (quality.IsSlot) {
+                try {
+                    quality.AssignToSlot = NullConvert(AssignToSlot.value())
+                } catch (error) {}
+            }
+            try {
+                quality.AvailableAt = NullConvert(AvailableAt.value())
+            } catch (error) {}
+            try {
+                quality.Ordering = Ordering.value()
+            } catch (error) {}
+            try {
+                quality.LimitedToArea = NullConvert(LimitedToArea.value())
+            } catch (error) {}
+            try {
+                meta.EnhancementsAmount = (Number(EnhancementsAmount.value()))
+                print(meta.EnhancementsAmount)
+            } catch (error) {}
         }
-
         RefreshDom() // Refresh all DOMs
         refresh = false
     }
