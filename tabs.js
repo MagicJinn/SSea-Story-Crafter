@@ -79,7 +79,8 @@ var quality = {
     AvailableAt: null,
     Ordering: 0,
     IsSlot: false,
-    LimitedToArea: null,
+    AssignToSlot: null,
+    // LimitedToArea: null,
     Persistent: false,
     Nature: "Unspecified",
     Category: "Unspecified",
@@ -87,6 +88,7 @@ var quality = {
 }
 var meta = { // Values that are used in the UI, but not passed through to the json builder
     advancedMode: false, // Whether advancedMode is activated
+    AssignToSlot: null,
     EnhancementsAmount: 0, // How many fields you have for Enhancements
     // Check if the EnhancementsAmount is updated
     EAChanged: false,
@@ -187,21 +189,64 @@ function QualityTab() {
             Ordering = createInput(quality.Ordering)
             createDiv()
 
-            createSpan("🔧LimitedToArea: ")
-            LimitedToArea = createInput(QuoteConvert(quality.LimitedToArea))
-            createDiv()
+            // createSpan("🔧LimitedToArea: ")
+            // LimitedToArea = createInput(QuoteConvert(quality.LimitedToArea))
+            // createDiv()
 
             createSpan()
             IsSlot = createCheckbox("🔧IsSlot", quality.IsSlot)
             createDiv()
 
             if (quality.IsSlot) {
+                meta.AssignToSlot = {
+                    RelationshipCapable: false,
+                    OwnerName: "StoryCrafter",
+                    Description: "",
+                    Image: null,
+                    Notes: null,
+                    Tag: null,
+                    Cap: null,
+                    HimbleLevel: 0,
+                    UsePyramidNumbers: false,
+                    PyramidNumberIncreaseLimit: 50,
+                    AvailableAt: null,
+                    PreventNaming: false,
+                    CssClasses: null,
+                    World: null,
+                    Ordering: 0,
+                    IsSlot: false,
+                    LimitedToArea: null,
+                    AssignToSlot: null,
+                    Persistent: false,
+                    QualitiesWhichAllowSecondChanceOnThis: [],
+                    Visible: true,
+                    Enhancements: [],
+                    EnhancementsDescription: null,
+                    AllowsSecondChancesOnChallengesForQuality: null,
+                    GivesTrophy: null,
+                    UseEvent: null,
+                    DifficultyTestType: "Broad",
+                    DifficultyScaler: 60,
+                    AllowedOn: "Unspecified",
+                    Nature: "Unspecified",
+                    Category: "Unspecified",
+                    LevelDescriptionText: null,
+                    ChangeDescriptionText: null,
+                    LevelImageText: null,
+                    Name: "",
+                    Id: null
+                }
+                if (quality.AssignToSlot == null) {
+                    quality.AssignToSlot = meta.AssignToSlot
+                }
                 createSpan("└ AssignToSlot")
-                AssignToSlot = createInput(QuoteConvert(quality.AssignToSlot))
+                print(meta.AssignToSlot)
+                print(QuoteConvert(quality.AssignToSlot.Id))
+                meta.AssignToSlot.Id = createInput(QuoteConvert(quality.AssignToSlot.Id))
                 createDiv()
             }
 
-            createSpan("🔧Enhancements: (WORK IN PROGRESS)")
+            createSpan("🔧Enhancements: ")
             EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
             EnhancementsAmount.size(40, 22)
             createDiv()
@@ -262,7 +307,6 @@ function QualityTab() {
                 }
                 createDiv(`└ Enhancement ${i+1}: `)
                 try {
-                    print(QuoteConvert(meta.Enhancements[i].Level))
                     createSpan("Level: ")
                     meta.Enhancements[i].Level = createInput(QuoteConvert(quality.Enhancements[i].Level))
                     createDiv()
@@ -276,9 +320,7 @@ function QualityTab() {
                     createDiv()
 
                     createP() // Creates larger gap.
-                } catch (error) {
-                    print(error)
-                }
+                } catch (error) {}
             }
         }
 
@@ -332,9 +374,7 @@ function QualityTab() {
             EnhancementsAmount.mouseOut(function () {
                 meta.EAMouseOut = true
             })
-        } catch (error) {
-            console.log("I need to listen for changes of a checkbox, but the checkbox technically doesn't exist yet. Hence this error. Feel free to ignore it.")
-        }
+        } catch (error) {}
         if (meta.EAMouseOut && meta.EAChanged) {
             refresh = true
             meta.EAChanged = false
@@ -343,7 +383,7 @@ function QualityTab() {
     }
 
     if (refresh) {
-        quality.Id = NullConvert(Id.value())
+        quality.Id = Number(NullConvert(Id.value()))
         quality.Name = NullConvert(Name.value())
         quality.Description = Description.value()
         quality.Image = Image.value()
@@ -354,9 +394,7 @@ function QualityTab() {
             } else if (Nature.value() == "Thing") {
                 quality.Category = CategoryThing.value()
             }
-        } catch (error) {
-            console.log(console.log("Trying to save values that don't exist yet. Ignore this error too"))
-        }
+        } catch (error) {}
 
         if (meta.advancedMode) { // No code in the catch block. Cry about it.
             try {
@@ -366,7 +404,7 @@ function QualityTab() {
                 quality.Tag = Tag.value()
             } catch (error) {}
             try {
-                quality.Cap = Cap.value()
+                quality.Cap = Number(NullConvert(Cap.value()))
             } catch (error) {}
             // quality.UsePyramidNumbers is saved somewhere else
             if (quality.UsePyramidNumbers) {
@@ -377,31 +415,30 @@ function QualityTab() {
             // quality.IsSlot is saved somewhere else
             if (quality.IsSlot) {
                 try {
-                    quality.AssignToSlot = NullConvert(AssignToSlot.value())
+                    quality.AssignToSlot = meta.AssignToSlot
+                    quality.AssignToSlot.Id = Number(NullConvert(meta.AssignToSlot.Id.value()))
                 } catch (error) {}
             }
             try {
                 quality.AvailableAt = NullConvert(AvailableAt.value())
             } catch (error) {}
             try {
-                quality.Ordering = Ordering.value()
+                quality.Ordering = Number(Ordering.value())
             } catch (error) {}
-            try {
-                quality.LimitedToArea = NullConvert(LimitedToArea.value())
-            } catch (error) {}
+            // try {
+            //     quality.LimitedToArea = NullConvert(LimitedToArea.value())
+            // } catch (error) {}
             try {
                 meta.EnhancementsAmount = Number(EnhancementsAmount.value())
             } catch (error) {}
             try {
                 quality.Enhancements = meta.Enhancements
                 for (let i = 0; i < meta.Enhancements.length; i++) {
-                    print(Number(meta.Enhancements[i].Level.value()))
-                    quality.Enhancements[i].Level = NullConvert(meta.Enhancements[i].Level.value())
-                    quality.Enhancements[i].AssociatedQuality.Id = NullConvert(meta.Enhancements[i].AssociatedQuality.Id.value())
-                    quality.Enhancements[i].Id = NullConvert(meta.Enhancements[i].Id.value())
+                    quality.Enhancements[i].Level = Number(NullConvert(meta.Enhancements[i].Level.value()))
+                    quality.Enhancements[i].AssociatedQuality.Id = Number(NullConvert(meta.Enhancements[i].AssociatedQuality.Id.value()))
+                    quality.Enhancements[i].Id = Number(NullConvert(meta.Enhancements[i].Id.value()))
                 }
-            } catch (error) {print(error)}
-
+            } catch (error) {}
 
         }
         RefreshDom() // Refresh all DOMs
