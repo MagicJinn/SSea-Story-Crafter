@@ -83,7 +83,7 @@ var quality = {
     Persistent: false,
     Nature: "Unspecified",
     Category: "Unspecified",
-    Enhancements: []
+    Enhancements: [],
 }
 var meta = { // Values that are used in the UI, but not passed through to the json builder
     advancedMode: false, // Whether advancedMode is activated
@@ -91,14 +91,15 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     // Check if the EnhancementsAmount is updated
     EAChanged: false,
     EAMouseOut: false,
+    Enhancements: null
 }
 let refresh = false
 let save = false
 
 function QualityTab() {
-    ImageGaz()
-    PageTitle()
-    PageDescription()
+    ImageGaz(repair)
+    PageTitle("Under Construction")
+    PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
     if (!domSetup) { // Create all buttons.
         createSpan("Id: ")
         Id = createInput(QuoteConvert(quality.Id))
@@ -205,9 +206,9 @@ function QualityTab() {
             EnhancementsAmount.size(40, 22)
             createDiv()
 
-            var Enhancements = []
+            meta.Enhancements = []
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
-                Enhancements.push({
+                meta.Enhancements[i] = {
                     Level: null,
                     AssociatedQuality: {
                         RelationshipCapable: false,
@@ -255,18 +256,29 @@ function QualityTab() {
                     QualityCategory: null,
                     QualityAllowedOn: null,
                     Id: null
-                })
-
+                }
+                if (quality.Enhancements[i] == undefined) {
+                    quality.Enhancements[i] = meta.Enhancements[i]
+                }
                 createDiv(`└ Enhancement ${i+1}: `)
+                try {
+                    print(QuoteConvert(meta.Enhancements[i].Level))
+                    createSpan("Level: ")
+                    meta.Enhancements[i].Level = createInput(QuoteConvert(quality.Enhancements[i].Level))
+                    createDiv()
 
-                createSpan("Level: ")
-                Enhancements[i].Level = createInput(NullConvert(Enhancements.Level))
-                createDiv()
+                    createSpan("AssociatedQuality: ")
+                    meta.Enhancements[i].AssociatedQuality.Id = createInput(QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
+                    createDiv()
 
-                createSpan("AssociatedQuality: ")
-                Enhancements[i].AssociatedQuality.Id =
+                    createSpan("Id: ")
+                    meta.Enhancements[i].Id = createInput(QuoteConvert(quality.Enhancements[i].Id))
+                    createDiv()
 
-                createP() // Creates larger gap.
+                    createP() // Creates larger gap.
+                } catch (error) {
+                    print(error)
+                }
             }
         }
 
@@ -378,11 +390,18 @@ function QualityTab() {
                 quality.LimitedToArea = NullConvert(LimitedToArea.value())
             } catch (error) {}
             try {
-                meta.EnhancementsAmount = (Number(EnhancementsAmount.value()))
-                for (let i = 0; i < meta.EnhancementsAmount; i++) {
-                    quality.Enhancements[i] = Enhancements[i].value()
-                }
+                meta.EnhancementsAmount = Number(EnhancementsAmount.value())
             } catch (error) {}
+            try {
+                quality.Enhancements = meta.Enhancements
+                for (let i = 0; i < meta.Enhancements.length; i++) {
+                    print(Number(meta.Enhancements[i].Level.value()))
+                    quality.Enhancements[i].Level = NullConvert(meta.Enhancements[i].Level.value())
+                    quality.Enhancements[i].AssociatedQuality.Id = NullConvert(meta.Enhancements[i].AssociatedQuality.Id.value())
+                    quality.Enhancements[i].Id = NullConvert(meta.Enhancements[i].Id.value())
+                }
+            } catch (error) {print(error)}
+
 
         }
         RefreshDom() // Refresh all DOMs
@@ -396,7 +415,7 @@ function QualityTab() {
 }
 
 function StoryTab() {
-    ImageGaz(placeholder.gaz)
-    PageTitle("Coming Soon...")
-    PageDescription("Nothing awaits you. Time to leave port?")
+    ImageGaz()
+    PageTitle()
+    PageDescription()
 }
