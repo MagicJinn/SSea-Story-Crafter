@@ -83,10 +83,14 @@ var quality = {
     Persistent: false,
     Nature: "Unspecified",
     Category: "Unspecified",
+    Enhancements: []
 }
-var meta = {
+var meta = { // Values that are used in the UI, but not passed through to the json builder
     advancedMode: false, // Whether advancedMode is activated
-    EnhancementsAmount: 0 // How many fields you have for Enhancements
+    EnhancementsAmount: 0, // How many fields you have for Enhancements
+    // Check if the EnhancementsAmount is updated
+    EAChanged: false,
+    EAMouseOut: false,
 }
 let refresh = false
 let save = false
@@ -198,11 +202,71 @@ function QualityTab() {
 
             createSpan("🔧Enhancements: (WORK IN PROGRESS)")
             EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
-            EnhancementsAmount.size(40,22)
+            EnhancementsAmount.size(40, 22)
             createDiv()
 
+            var Enhancements = []
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                Enhancements.push({
+                    Level: null,
+                    AssociatedQuality: {
+                        RelationshipCapable: false,
+                        OwnerName: "StoryCrafter",
+                        Description: "",
+                        Image: null,
+                        Notes: null,
+                        Tag: null,
+                        Cap: null,
+                        HimbleLevel: 0,
+                        UsePyramidNumbers: false,
+                        PyramidNumberIncreaseLimit: 50,
+                        AvailableAt: null,
+                        PreventNaming: false,
+                        CssClasses: null,
+                        World: null,
+                        Ordering: 0,
+                        IsSlot: false,
+                        LimitedToArea: null,
+                        AssignToSlot: null,
+                        Persistent: false,
+                        QualitiesWhichAllowSecondChanceOnThis: [],
+                        Visible: true,
+                        Enhancements: [],
+                        EnhancementsDescription: null,
+                        AllowsSecondChancesOnChallengesForQuality: null,
+                        GivesTrophy: null,
+                        UseEvent: null,
+                        DifficultyTestType: "Broad",
+                        DifficultyScaler: 60,
+                        AllowedOn: "Unspecified",
+                        Nature: "Unspecified",
+                        Category: "Unspecified",
+                        LevelDescriptionText: null,
+                        ChangeDescriptionText: null,
+                        LevelImageText: null,
+                        Name: "",
+                        Id: null
+                    },
+                    AssociatedQualityId: 0,
+                    QualityName: null,
+                    QualityDescription: null,
+                    QualityImage: null,
+                    QualityNature: null,
+                    QualityCategory: null,
+                    QualityAllowedOn: null,
+                    Id: null
+                })
+
                 createDiv(`└ Enhancement ${i+1}: `)
+
+                createSpan("Level: ")
+                Enhancements[i].Level = createInput(NullConvert(Enhancements.Level))
+                createDiv()
+
+                createSpan("AssociatedQuality: ")
+                Enhancements[i].AssociatedQuality.Id =
+
+                createP() // Creates larger gap.
             }
         }
 
@@ -248,10 +312,21 @@ function QualityTab() {
                 refresh = true
             })
             EnhancementsAmount.changed(function () {
-                refresh = true
+                meta.EAChanged = true
+            })
+            EnhancementsAmount.mouseOver(function () {
+                meta.EAMouseOut = false
+            })
+            EnhancementsAmount.mouseOut(function () {
+                meta.EAMouseOut = true
             })
         } catch (error) {
             console.log("I need to listen for changes of a checkbox, but the checkbox technically doesn't exist yet. Hence this error. Feel free to ignore it.")
+        }
+        if (meta.EAMouseOut && meta.EAChanged) {
+            refresh = true
+            meta.EAChanged = false
+            meta.EAMouseOut = false
         }
     }
 
@@ -304,8 +379,11 @@ function QualityTab() {
             } catch (error) {}
             try {
                 meta.EnhancementsAmount = (Number(EnhancementsAmount.value()))
-                print(meta.EnhancementsAmount)
+                for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                    quality.Enhancements[i] = Enhancements[i].value()
+                }
             } catch (error) {}
+
         }
         RefreshDom() // Refresh all DOMs
         refresh = false
