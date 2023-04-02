@@ -7,6 +7,7 @@ function preload() {
     tab = loadImage(p + "tab" + e)
     frame = loadImage(p + "frame" + e)
     paperstack = loadImage(p + "paperstackgaz" + e)
+    repair = loadImage(p + "repairgaz" + e)
 
     let cms = "comingsoon/comingsoon"
     placeholder = {
