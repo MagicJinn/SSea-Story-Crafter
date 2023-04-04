@@ -48,18 +48,65 @@ function Story(input = {}) {
     return combinedImage[id]
 }
 
+
+var titleHeight
+
 function PageTitle(input = "Coming Soon...") {
     textSize(26)
     textFont(Fontin.SmallCaps)
     textAlign(LEFT, TOP)
-    text(input, 420, 50, 350)
+
+    let words = input.split(" ")
+    let line = ""
+    let lines = []
+
+    for (let i = 0; i < words.length; i++) {
+        let iLine = line + words[i] + " "
+        let iWidth = textWidth(iLine)
+        if (iWidth > 350) {
+            lines.push(line)
+            line = words[i] + " "
+        } else {
+            line = iLine
+        }
+    }
+    lines.push(line)
+
+    for (let i = 0; i < lines.length; i++) {
+        text(lines[i], 420, textSize() * i + 50)
+    }
+
+    titleHeight = textSize() * lines.length
 }
+
+var descriptionHeight
 
 function PageDescription(input = "Nothing awaits you. Time to leave port?") {
     textSize(16)
     textFont(Fontin.Regular)
     textAlign(LEFT, TOP)
-    text(input, 425, 80, 350)
+
+    let words = input.split(" ")
+    let line = ""
+    let lines = []
+
+    for (let i = 0; i < words.length; i++) {
+        let iLine = line + words[i] + " "
+        let iWidth = textWidth(iLine)
+        if (iWidth > 350) {
+            lines.push(line)
+            line = words[i] + " "
+        } else {
+            line = iLine
+        }
+    }
+    lines.push(line)
+
+    for (let i = 0; i < lines.length; i++) {
+        text(lines[i], 425, textSize() * i + titleHeight + 55)
+    }
+
+    descriptionHeight = textSize() * lines.length
 }
 
 function ImageGaz(input = placeholder.gaz) {
