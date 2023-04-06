@@ -48,7 +48,7 @@ function InfoTab() {
         url: h + g + "MagicJinn/",
         image: gitAvatar
     }]
-    
+
     let x = 600
     for (let i = 0; i < buttons.length; i++) {
         let y = (story.height + 10) * i + titleHeight + descriptionHeight + 102
