@@ -512,8 +512,7 @@ function QualityTab() {
                 errors++
             }
             try {
-                if (NullConvert(Cap.value() == null)) {
-                    quality.Cap = NullConvert(Cap.value())
+                if (NullConvert(Cap.value()) == null) {
                 } else {
                     quality.Cap = Number(NullConvert(Cap.value()))
                 }
