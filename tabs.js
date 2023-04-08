@@ -86,6 +86,13 @@ var quality = {
     Nature: "Unspecified",
     Category: "Unspecified",
     Enhancements: [],
+    UseEvent: null,
+    DifficultyTestType: "Broad",
+    DifficultyScaler: 60,
+    AllowedOn: "Character",
+    LevelDescriptionText: null,
+    ChangeDescriptionText: null,
+    LevelImageText: null,
 }
 var meta = { // Values that are used in the UI, but not passed through to the json builder
     advancedMode: false, // Whether advancedMode is activated
@@ -94,11 +101,11 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     // Check if the EnhancementsAmount is updated
     EAChanged: false,
     EAMouseOut: false,
-    Enhancements: null
+    Enhancements: null,
 }
-let refresh = false
+var refresh = false
 let save = false
-
+var errors = 0 // This value just tracks how many try statements fail. Nothing to worry about.
 function QualityTab() {
     ImageGaz(repair)
     PageTitle("Under Construction")
@@ -241,8 +248,6 @@ function QualityTab() {
                     quality.AssignToSlot = meta.AssignToSlot
                 }
                 createSpan("└ AssignToSlot")
-                print(meta.AssignToSlot)
-                print(QuoteConvert(quality.AssignToSlot.Id))
                 meta.AssignToSlot.Id = createInput(QuoteConvert(quality.AssignToSlot.Id))
                 createDiv()
             }
@@ -321,8 +326,88 @@ function QualityTab() {
                     createDiv()
 
                     createP() // Creates larger gap.
-                } catch (error) {}
+                } catch (error) {
+                    errors++
+                }
             }
+
+            if (quality.UseEvent == undefined || quality.UseEvent == null) {
+                quality.UseEvent = {
+                    ChildBranches: [],
+                    ParentBranch: null,
+                    QualitiesAffected: [],
+                    QualitiesRequired: [],
+                    Image: null,
+                    Description: null,
+                    Tag: null,
+                    ExoticEffects: null,
+                    Note: null,
+                    ChallengeLevel: 0,
+                    UnclearedEditAt: null,
+                    LastEditedBy: null,
+                    Ordering: 0,
+                    ShowAsMessage: false,
+                    LivingStory: null,
+                    LinkToEvent: null,
+                    Deck: null,
+                    Category: "Unspecialised",
+                    LimitedToArea: null,
+                    World: null,
+                    Transient: false,
+                    Stickiness: 0,
+                    MoveToAreaId: 0,
+                    MoveToArea: null,
+                    MoveToDomicile: null,
+                    SwitchToSetting: null,
+                    FatePointsChange: 0,
+                    BootyValue: 0,
+                    LogInJournalAgainstQuality: null,
+                    Setting: null,
+                    Urgency: "Normal",
+                    Teaser: null,
+                    OwnerName: null,
+                    DateTimeCreated: null,
+                    Distribution: 0,
+                    Autofire: true,
+                    CanGoBack: false,
+                    Name: null,
+                    Id: null
+                }
+            }
+            createSpan("🔧UseEvent: ")
+            UseEvent = createInput(QuoteConvert(quality.UseEvent.Id))
+            createDiv()
+
+            createSpan("🔧DifficultyTestType: ")
+            DifficultyTestType = createSelect()
+            DifficultyTestType.option("Broad")
+            DifficultyTestType.option("Narrow")
+            DifficultyTestType.selected(quality.DifficultyTestType)
+            createDiv()
+
+            createSpan("└ DifficultyScaler: ")
+            DifficultyScaler = createInput(quality.DifficultyScaler)
+            createDiv()
+
+            createSpan("🔧AllowedOn: ")
+            AllowedOn = createSelect()
+            AllowedOn.option("Character")
+            AllowedOn.option("User")
+            AllowedOn.selected(quality.AllowedOn)
+            createDiv()
+
+            createSpan("🔧LevelDescriptionText: ")
+            LevelDescriptionText = createInput(QuoteConvert(quality.LevelDescriptionText))
+            createDiv()
+
+            createSpan("🔧ChangeDescriptionText: ")
+            ChangeDescriptionText = createInput(QuoteConvert(quality.ChangeDescriptionText))
+            createDiv()
+
+            createSpan("🔧LevelImageText: ")
+            LevelImageText = createInput(QuoteConvert(quality.LevelImageText))
+            createDiv()
+
         }
 
         // Button to create the Json
@@ -375,11 +460,27 @@ function QualityTab() {
             EnhancementsAmount.mouseOut(function () {
                 meta.EAMouseOut = true
             })
-        } catch (error) {}
+        } catch (error) {
+            errors++
+        }
         if (meta.EAMouseOut && meta.EAChanged) {
             refresh = true
             meta.EAChanged = false
             meta.EAMouseOut = false
+        }
+        try {
+            DifficultyTestType.changed(function () {
+                refresh = true
+            })
+        } catch (error) {
+            errors++
+        }
+        try {
+            AllowedOn.changed(function () {
+                refresh = true
+            })
+        } catch (error) {
+            errors++
         }
     }
 
@@ -395,43 +496,65 @@ function QualityTab() {
             } else if (Nature.value() == "Thing") {
                 quality.Category = CategoryThing.value()
             }
-        } catch (error) {}
+        } catch (error) {
+            errors++
+        }
 
         if (meta.advancedMode) { // No code in the catch block. Cry about it.
             try {
                 quality.Notes = Notes.value()
-            } catch (error) {}
+            } catch (error) {
+                errors++
+            }
             try {
                 quality.Tag = Tag.value()
-            } catch (error) {}
+            } catch (error) {
+                errors++
+            }
             try {
-                quality.Cap = Number(NullConvert(Cap.value()))
-            } catch (error) {}
+                if (NullConvert(Cap.value() == null)) {
+                    quality.Cap = NullConvert(Cap.value())
+                } else {
+                    quality.Cap = Number(NullConvert(Cap.value()))
+                }
+            } catch (error) {
+                errors++
+            }
             // quality.UsePyramidNumbers is saved somewhere else
             if (quality.UsePyramidNumbers) {
                 try {
                     quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
-                } catch (error) {}
+                } catch (error) {
+                    errors++
+                }
             }
             // quality.IsSlot is saved somewhere else
             if (quality.IsSlot) {
                 try {
                     quality.AssignToSlot = meta.AssignToSlot
                     quality.AssignToSlot.Id = Number(NullConvert(meta.AssignToSlot.Id.value()))
-                } catch (error) {}
+                } catch (error) {
+                    errors++
+                }
             }
             try {
                 quality.AvailableAt = NullConvert(AvailableAt.value())
-            } catch (error) {}
+            } catch (error) {
+                errors++
+            }
             try {
                 quality.Ordering = Number(Ordering.value())
-            } catch (error) {}
+            } catch (error) {
+                errors++
+            }
             // try {
             //     quality.LimitedToArea = NullConvert(LimitedToArea.value())
-            // } catch (error) {}
+            // } catch (error) {errors++}
             try {
                 meta.EnhancementsAmount = Number(EnhancementsAmount.value())
-            } catch (error) {}
+            } catch (error) {
+                errors++
+            }
             try {
                 quality.Enhancements = meta.Enhancements
                 for (let i = 0; i < meta.Enhancements.length; i++) {
@@ -439,13 +562,54 @@ function QualityTab() {
                     quality.Enhancements[i].AssociatedQuality.Id = Number(NullConvert(meta.Enhancements[i].AssociatedQuality.Id.value()))
                     quality.Enhancements[i].Id = Number(NullConvert(meta.Enhancements[i].Id.value()))
                 }
-            } catch (error) {}
-
+            } catch (error) {
+                errors++
+            }
+            try {
+                if (NullConvert(UseEvent.value()) == undefined || NullConvert(UseEvent.value()) == null) {
+                    quality.UseEvent = null
+                } else {
+                    quality.UseEvent.Id = Number(UseEvent.value())
+                }
+            } catch (error) {
+                errors++
+            }
+            try {
+                quality.DifficultyTestType = DifficultyTestType.value()
+            } catch (error) {
+                errors++
+            }
+            try {
+                quality.DifficultyScaler = Number(DifficultyScaler.value())
+            } catch (error) {
+                errors++
+            }
+            try {
+                quality.AllowedOn = AllowedOn.value()
+            } catch (error) {
+                errors++
+            }
+            try {
+                quality.LevelDescriptionText = NullConvert(LevelDescriptionText.value())
+            } catch (error) {
+                errors++
+            }
+            try {
+                quality.ChangeDescriptionText = NullConvert(ChangeDescriptionText.value())
+            } catch (error) {
+                errors++
+            }
+            try {
+                quality.LevelImageText = NullConvert(LevelImageText.value())
+            } catch (error) {
+                errors++
+            }
         }
         RefreshDom() // Refresh all DOMs
         refresh = false
+        console.log(errors)
+        errors = 0
     }
-
     if (save) {
         SaveQuality(quality)
         save = false

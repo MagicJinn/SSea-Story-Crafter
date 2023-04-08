@@ -1,6 +1,10 @@
 let currentTab = []
 let previousTab = []
 
+window.onerror = function (message, source, line, column, error) {
+    alert("Error: " + message + "\n\nShow me this message on the Github Issues page");
+}
+
 function setup() {
     createCanvas(book.width, book.height + tab.height)
     frameRate(30)
@@ -15,7 +19,7 @@ function draw() {
         InfoTab()
     } else if (currentTab[1]) {
         QualityTab()
-    } else if (currentTab[2]){
+    } else if (currentTab[2]) {
         StoryTab()
     }
 }
