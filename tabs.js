@@ -500,7 +500,7 @@ function QualityTab() {
             errors++
         }
 
-        if (meta.advancedMode) { // No code in the catch block. Cry about it.
+        if (meta.advancedMode) {
             try {
                 quality.Notes = Notes.value()
             } catch (error) {
