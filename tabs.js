@@ -512,9 +512,11 @@ function QualityTab() {
                 errors++
             }
             try {
-                if (NullConvert(Cap.value()) == null) {
+                let CapNumber = NullConvert(Cap.value())
+                if (CapNumber == null) {
+                    quality.Cap = CapNumber
                 } else {
-                    quality.Cap = Number(NullConvert(Cap.value()))
+                    quality.Cap = Number(CapNumber)
                 }
             } catch (error) {
                 errors++
