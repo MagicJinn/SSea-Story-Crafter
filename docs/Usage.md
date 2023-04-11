@@ -85,7 +85,6 @@ Here are all the fields you need to make a goods quality:
 **Ordering**: Determines the ordering of a list this quality might appear in. <sup>(Lower numbers come first)</sup><br>
 **UseEvent**: The Id of the event that gets triggered when you interact with this quality. <sup>[example](http://sunlesssea.fandom.com/wiki/Strategic_Information)<br>
 
-**When all fields are filled, click**
-![Create Json button](images/button.png)
+**When all fields are filled, click Create Json**
 
 ## Crafting a Story
