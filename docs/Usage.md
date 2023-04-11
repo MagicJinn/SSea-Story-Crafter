@@ -10,6 +10,8 @@ Looking for documentation about the code? [Check Documentation!](Documentation.m
 - 2 - [Step by Step](#step-by-step)
   - 2.1 [Crafting a Quality](#crafting-a-quality)
     - [Goods](#goods)
+    - [Curiosities](#curiosities)
+    - [Officers](#officers)
   - 2.2 [Crafting a Story (WIP)](#crafting-a-story)
 
 # Fields
@@ -86,5 +88,9 @@ Here are all the fields you need to make a goods quality:
 **UseEvent**: The Id of the event that gets triggered when you interact with this quality. <sup>[example](http://sunlesssea.fandom.com/wiki/Strategic_Information)<br>
 
 **When all fields are filled, click Create Json**
+
+### Curiosities
+
+### Officers
 
 ## Crafting a Story
