@@ -86,6 +86,6 @@ Here are all the fields you need to make a goods quality:
 **UseEvent**: The Id of the event that gets triggered when you interact with this quality. <sup>[example](http://sunlesssea.fandom.com/wiki/Strategic_Information)<br>
 
 **When all fields are filled, click**
-<button class="my-button">Create Json</button> <sup>(example)</sup>
+![Create Json button](images/button.png)
 
 ## Crafting a Story
