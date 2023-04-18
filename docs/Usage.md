@@ -22,7 +22,7 @@ Every field has their own specific data that it requires. These are described he
 
 **Id**: Your quality must have a unique number. All vanilla Id's are numbers below 200.000, so it's not recommended to go below this. Pick an arbitrarily high number for this.
 
-<sup>tip: Properly note the Id's of your quality in a word/txt file. This will help you later<sup>
+<sup>tip: Properly note the Id's of your quality in a word/txt file. This will help you later</sup>
 
 **Name**: Give your quality a name.
 
