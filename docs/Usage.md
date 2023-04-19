@@ -71,13 +71,15 @@ Don't want to learn the intricacies of the program or the code? You can follow t
 
 ## Crafting a Quality
 
-### Goods
+### **Goods**
+
+Goods are items that are stored in your hold. They take up hold space and can sometimes be jettisoned. They are usually trade goods or consumables.
 
 Here are all the fields you need to make a goods quality:
 
 **Id**: Unique Id Number<br>
-**Name**: Name of the goods<br>
-**Description**: Description for the goods<br>
+**Name**: Name of the quality<br>
+**Description**: Description for the quality<br>
 **Image**: The name of your image, without the *small* and without the extension (.png)<br>
 **Nature**: Select *Thing*<br>
 **Category**: Select *Goods*<br>
@@ -85,12 +87,32 @@ Here are all the fields you need to make a goods quality:
 **Advanced options**:<br>
 **AvailableAt**: Adds a tooltip to the quality when hovered over<br>
 **Ordering**: Determines the ordering of a list this quality might appear in. <sup>(Lower numbers come first)</sup><br>
-**UseEvent**: The Id of the event that gets triggered when you interact with this quality. <sup>[example](http://sunlesssea.fandom.com/wiki/Strategic_Information)<br>
+**UseEvent**: The Id of the event that gets triggered when you interact with this quality. <sup>[example](http://sunlesssea.fandom.com/wiki/Strategic_Information)</sup><br>
 
 **When all fields are filled, click Create Json**
 
-### Curiosities
+### **Curiosities**
 
-### Officers
+Curiosities are miscellaneous items that do not take up hold space. They can be tradeable goods, abstract concepts like secrets, tales and information.
+
+Here are all the fields you need to make a curiosities quality:
+
+**Id**: Unique Id Number<br>
+**Name**: Name of the quality<br>
+**Description**: Description for the quality<br>
+**Image**: The name of your image, without the *small* and without the extension (.png)<br>
+**Nature**: Select *Thing*<br>
+**Category**: Select *Curiosity*<br>
+
+**Advanced options**:<br>
+**UsePyramidNumbers**: Attaches levelling system to qualities, where the quality must increase by a number equal to its next level for the level to increase. <sup>[example](https://sunlesssea.fandom.com/wiki/Favours:_Antiquarian)</sup><br>
+**PyramidNumberIncreaseLimit**: The level cap past which the quality must increase by the level cap per level gained.<br>
+**AvailableAt**: Adds a tooltip to the quality when hovered over<br>
+**Ordering**: Determines the ordering of a list this quality might appear in. <sup>(Lower numbers come first)</sup><br>
+**UseEvent**: The Id of the event that gets triggered when you interact with this quality. <sup>[example](http://sunlesssea.fandom.com/wiki/Strategic_Information)</sup><br>
+
+**When all fields are filled, click Create Json**
+
+### **Officers**
 
 ## Crafting a Story
