@@ -11,9 +11,9 @@ coming support for stories, and possibly more!
 
 |Project aspect|Progress|
 |-|-|
-|Code and features|<progress value="30" max="100"></progress><br> **Done**:<br> - Qualities (90%)<br>**To do**: <br> -Finish qualities UI <br>- Stories |
-|Documentation |<progress value="0" max="100"></progress><br>Done: <br>- Qualities <br><br>To do:|
-|Total Progress|<progress value=0 max=100></progress>|
+|Code and features|![](https://progress-bar.dev/0)<br> **Done**:<br> - Qualities (90%)<br>**To do**: <br> -Finish qualities UI <br>- Stories |
+|Documentation |![](https://progress-bar.dev/0)<br>Done: <br>- Qualities <br><br>To do:|
+|Total Progress|![](https://progress-bar.dev/0)|
 
 ## [How to use](https://github.com/MagicJinn/SSea-Story-Crafter/blob/main/docs/Usage.md)
 
