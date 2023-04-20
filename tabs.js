@@ -2,7 +2,7 @@ function Tabs() {
     textAlign(CENTER, CENTER)
     textSize(16)
     textFont(Fontin.SmallCaps)
-    const tabs = ["Info", "Qualities", "Stories"]
+    const tabs = ["Info", "Qualities", "Stories","More"]
     const buttonWidth = 1.2
     for (let i = 0; i < tabs.length; i++) {
         if (!currentTab[i]) {
@@ -618,7 +618,7 @@ function QualityTab() {
 }
 
 function StoryTab() {
-    ImageGaz()
-    PageTitle()
-    PageDescription()
+    ImageGaz(repair)
+    PageTitle("Under Construction")
+    PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
 }

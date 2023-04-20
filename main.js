@@ -1,6 +1,7 @@
 let currentTab = []
 let previousTab = []
 
+// Catches any errors in the program and shows you a prompt
 window.onerror = function (message, source, line, column, error) {
     alert("Error: " + message + "\n\nShow me this message on the Github Issues page");
 }
@@ -21,5 +22,9 @@ function draw() {
         QualityTab()
     } else if (currentTab[2]) {
         StoryTab()
+    } else if (currentTab[3]) {
+        ImageGaz()
+        PageTitle()
+        PageDescription()
     }
 }
