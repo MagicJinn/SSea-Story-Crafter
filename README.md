@@ -9,10 +9,10 @@ coming support for stories, and possibly more!
 
 ## Project progress
 <!-- A total mess of HTML. I know. -->
-|Project aspect|Progress|
-|-|-|
-|Code and features|![](http://progress-bar.dev/35)<br> **Done**:<br> • Qualities (90%)<br>**To do**: <br> • Finish qualities UI <br>• Stories |
-|Documentation |![](http://progress-bar.dev/15)<br>**Done**: <br>• Qualities <br>&nbsp;&nbsp; • Goods<br>&nbsp;&nbsp; • Curiosities<br>**To do**:<br>• Qualities<br>&nbsp;&nbsp; • Officers<br>&nbsp;&nbsp; • Ship<br>&nbsp;&nbsp; • Circumstance<br>&nbsp;&nbsp; • Story<br>&nbsp;&nbsp; • Progress<br>&nbsp;&nbsp; • Quest<br>&nbsp;&nbsp; • Accomplishment<br>&nbsp;&nbsp; • BasicAbility<br>&nbsp;&nbsp; • SpecificAbility<br>&nbsp;&nbsp; • MinorLateral<br>• Stories (All)|
+|Project aspect|Progress|To do|
+|-|-|-|
+|Code and features|![](http://progress-bar.dev/35)|**Done**:<br> • Qualities (90%)<br>**To do**: <br> • Finish qualities UI <br>• Stories |
+|Documentation |![](http://progress-bar.dev/15)|**Done**: <br>• Qualities <br>&nbsp;&nbsp; • Goods<br>&nbsp;&nbsp; • Curiosities<br>**To do**:<br>• Qualities<br>&nbsp;&nbsp; • Officers<br>&nbsp;&nbsp; • Ship<br>&nbsp;&nbsp; • Circumstance<br>&nbsp;&nbsp; • Story<br>&nbsp;&nbsp; • Progress<br>&nbsp;&nbsp; • Quest<br>&nbsp;&nbsp; • Accomplishment<br>&nbsp;&nbsp; • BasicAbility<br>&nbsp;&nbsp; • SpecificAbility<br>&nbsp;&nbsp; • MinorLateral<br>• Stories (All)|
 |Total Progress|![](http://progress-bar.dev/20)|
 
 ## [How to use](http://github.com/MagicJinn/SSea-Story-Crafter/blob/main/docs/Usage.md)
