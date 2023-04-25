@@ -122,7 +122,7 @@ function QualityTab() {
         const AFT = 102965
         if (quality.AssignToSlot.Id == DECK || quality.AssignToSlot.Id == AUXILARY || quality.AssignToSlot.Id == BRIDGE || quality.AssignToSlot.Id == ENGINES || quality.AssignToSlot.Id == FORWARD || quality.AssignToSlot.Id == AFT) { // Check if it's ship equipment
             image(shipequipment, 200, 350)
-                        if (quality.AssignToSlot.Id == DECK) {
+            if (quality.AssignToSlot.Id == DECK) {
 
             } else if (quality.AssignToSlot.Id == AUXILARY) {
 
@@ -142,31 +142,36 @@ function QualityTab() {
         PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
     }
     /*
-    What follows is all code to create and refresh DOM Elements. This should probably be entirely rewritten in the future.
+    What follows is all code to create and refresh DOM Elements. This should probably be entirely rewritten in the future. (Update, rewrites are happening, kinda)
     Due to the nature of DOM elements, whenever a value is changed that necessitates new fields to be created (for example, advanced mode is enabled), all DOM elements need to be destroyed and recreated.
     All values in DOM elements are saved, then new elements are created containing the saved values.
     This creates a large amount of errors, since due to my limited coding knowledge, the program tries to save values that do not exist (yet). Try statements "fix" that. 
     */
     if (!domSetup) {
-        createSpan("Id: ")
-        Id = createInput(QuoteConvert(quality.Id))
-        createDiv()
+        // createSpan("Id: ")
+        // Id = createInput(QuoteConvert(quality.Id))
+        // createDiv()
+        Id = new CreateInput("Id", QuoteConvert(quality.Id))
 
-        createSpan("Name: ")
-        Name = createInput(QuoteConvert(quality.Name))
-        createDiv()
+        // createSpan("Name: ")
+        // Name = createInput(QuoteConvert(quality.Name))
+        // createDiv()
+        Name = new CreateInput("Name", QuoteConvert(quality.name))
 
-        createSpan("Description: ")
-        Description = createInput(quality.Description)
-        createDiv()
+        // createSpan("Description: ")
+        // Description = createInput(quality.Description)
+        // createDiv()
+        Description = new CreateInput("Description", quality.Description)
 
-        createSpan("Image: ")
-        Image = createInput(quality.Image)
-        createDiv()
+        // createSpan("Image: ")
+        // Image = createInput(quality.Image)
+        // createDiv()
+        Image = new CreateInput("Image", quality.Image)
 
         createSpan()
         Persistent = createCheckbox("Persistent", quality.Persistent)
         createDiv()
+        // Persistent = new CreateCheckbox("Persistent", quality.Persistent)
 
         createSpan("Nature: ")
         Nature = createSelect()
@@ -204,39 +209,41 @@ function QualityTab() {
 
         advancedMode = createCheckbox("🔧 Advanced Mode", meta.advancedMode)
         if (meta.advancedMode) {
-            createSpan("🔧 Notes: ")
-            Notes = createInput(QuoteConvert(quality.Notes))
-            createDiv()
+            // createSpan("🔧 Notes: ")
+            // Notes = createInput(QuoteConvert(quality.Notes))
+            // createDiv()
+            Notes = new CreateInput("🔧 Notes", QuoteConvert(quality.Notes))
 
-            createSpan("🔧 Tag: ")
-            Tag = createInput(QuoteConvert(quality.Tag))
-            createDiv()
+            // createSpan("🔧 Tag: ")
+            // Tag = createInput(QuoteConvert(quality.Tag))
+            // createDiv()
+            Tag = new CreateInput("🔧 Tag", QuoteConvert(quality.Tag))
 
-            createSpan("🔧 Cap: ")
-            Cap = createInput(QuoteConvert(quality.Cap))
-            createDiv()
+            // createSpan("🔧 Cap: ")
+            // Cap = createInput(QuoteConvert(quality.Cap))
+            // createDiv()
+            Cap = new CreateInput("🔧 Cap", QuoteConvert(quality.Cap))
 
             createSpan()
             UsePyramidNumbers = createCheckbox("🔧 UsePyramidNumbers", quality.UsePyramidNumbers)
             createDiv()
 
             if (quality.UsePyramidNumbers) {
-                createSpan("└ PyramidNumberIncreaseLimit: ")
-                PyramidNumberIncreaseLimit = createInput(quality.PyramidNumberIncreaseLimit)
-                createDiv()
+                // createSpan("└ PyramidNumberIncreaseLimit: ")
+                // PyramidNumberIncreaseLimit = createInput(quality.PyramidNumberIncreaseLimit)
+                // createDiv()
+                PyramidNumberIncreaseLimit = new CreateInput("└ PyramidNumberIncreaseLimit", quality.PyramidNumberIncreaseLimit)
             }
 
-            createSpan("🔧AvailableAt: ")
-            AvailableAt = createInput(QuoteConvert(quality.AvailableAt))
-            createDiv()
-
-            createSpan("🔧Ordering: ")
-            Ordering = createInput(quality.Ordering)
-            createDiv()
-
-            // createSpan("🔧LimitedToArea: ")
-            // LimitedToArea = createInput(QuoteConvert(quality.LimitedToArea))
+            // createSpan("🔧AvailableAt: ")
+            // AvailableAt = createInput(QuoteConvert(quality.AvailableAt))
             // createDiv()
+            AvailableAt = new CreateInput("🔧AvailableAt", QuoteConvert(quality.AvailableAt))
+
+            // createSpan("🔧Ordering: ")
+            // Ordering = createInput(quality.Ordering)
+            // createDiv()
+            Ordering = new CreateInput("🔧Ordering", quality.Ordering)
 
             createSpan()
             IsSlot = createCheckbox("🔧IsSlot", quality.IsSlot)
@@ -283,12 +290,14 @@ function QualityTab() {
             if (quality.AssignToSlot == null) {
                 quality.AssignToSlot = meta.AssignToSlot
             }
-            createSpan("🔧 AssignToSlot")
-            meta.AssignToSlot.Id = createInput(QuoteConvert(quality.AssignToSlot.Id))
-            createDiv()
+            // createSpan("🔧 AssignToSlot: ")
+            // meta.AssignToSlot.Id = createInput(QuoteConvert(quality.AssignToSlot.Id))
+            // createDiv()
+            meta.AssignToSlot.Id = new CreateInput("🔧 AssignToSlot", QuoteConvert(quality.AssignToSlot.Id))
 
             createSpan("🔧Enhancements: ")
             EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
+            // EnhancementsAmount = new CreateInput("🔧Enhancements",meta.EnhancementsAmount, "number")
             EnhancementsAmount.size(40, 22)
             createDiv()
 
@@ -348,17 +357,20 @@ function QualityTab() {
                 }
                 createDiv(`└ Enhancement ${i+1}: `)
                 try {
-                    createSpan("Level: ")
-                    meta.Enhancements[i].Level = createInput(QuoteConvert(quality.Enhancements[i].Level))
-                    createDiv()
+                    // createSpan("Level: ")
+                    // meta.Enhancements[i].Level = createInput(QuoteConvert(quality.Enhancements[i].Level))
+                    // createDiv()
+                    meta.Enhancements[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
 
-                    createSpan("AssociatedQuality: ")
-                    meta.Enhancements[i].AssociatedQuality.Id = createInput(QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
-                    createDiv()
+                    // createSpan("AssociatedQuality: ")
+                    // meta.Enhancements[i].AssociatedQuality.Id = createInput(QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
+                    // createDiv()
+                    meta.Enhancements[i].AssociatedQuality.Id = new CreateInput("AssociatedQuality", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
 
-                    createSpan("Id: ")
-                    meta.Enhancements[i].Id = createInput(QuoteConvert(quality.Enhancements[i].Id))
-                    createDiv()
+                    // createSpan("Id: ")
+                    // meta.Enhancements[i].Id = createInput(QuoteConvert(quality.Enhancements[i].Id))
+                    // createDiv()
+                    meta.Enhancements[i].Id = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
 
                     createP() // Creates larger gap.
                 } catch (error) {
@@ -409,9 +421,10 @@ function QualityTab() {
                     Id: null
                 }
             }
-            createSpan("🔧UseEvent: ")
-            UseEvent = createInput(QuoteConvert(quality.UseEvent.Id))
-            createDiv()
+            // createSpan("🔧UseEvent: ")
+            // UseEvent = createInput(QuoteConvert(quality.UseEvent.Id))
+            // createDiv()
+            UseEvent = new CreateInput("🔧UseEvent", QuoteConvert(quality.UseEvent.Id))
 
             createSpan("🔧DifficultyTestType: ")
             DifficultyTestType = createSelect()
@@ -420,9 +433,10 @@ function QualityTab() {
             DifficultyTestType.selected(quality.DifficultyTestType)
             createDiv()
 
-            createSpan("└ DifficultyScaler: ")
-            DifficultyScaler = createInput(quality.DifficultyScaler)
-            createDiv()
+            // createSpan("└ DifficultyScaler: ")
+            // DifficultyScaler = createInput(quality.DifficultyScaler)
+            // createDiv()
+            DifficultyScaler = new CreateInput("└ DifficultyScaler", quality.DifficultyScaler)
 
             createSpan("🔧AllowedOn: ")
             AllowedOn = createSelect()
@@ -431,18 +445,20 @@ function QualityTab() {
             AllowedOn.selected(quality.AllowedOn)
             createDiv()
 
-            createSpan("🔧LevelDescriptionText: ")
-            LevelDescriptionText = createInput(QuoteConvert(quality.LevelDescriptionText))
-            createDiv()
+            // createSpan("🔧LevelDescriptionText: ")
+            // LevelDescriptionText = createInput(QuoteConvert(quality.LevelDescriptionText))
+            // createDiv()
+            LevelDescriptionText = new CreateInput("🔧LevelDescriptionText", QuoteConvert(quality.LevelDescriptionText))
 
-            createSpan("🔧ChangeDescriptionText: ")
-            ChangeDescriptionText = createInput(QuoteConvert(quality.ChangeDescriptionText))
-            createDiv()
+            // createSpan("🔧ChangeDescriptionText: ")
+            // ChangeDescriptionText = createInput(QuoteConvert(quality.ChangeDescriptionText))
+            // createDiv()
+            ChangeDescriptionText = new CreateInput("🔧ChangeDescriptionText", QuoteConvert(quality.ChangeDescriptionText))
 
-            createSpan("🔧LevelImageText: ")
-            LevelImageText = createInput(QuoteConvert(quality.LevelImageText))
-            createDiv()
-
+            // createSpan("🔧LevelImageText: ")
+            // LevelImageText = createInput(QuoteConvert(quality.LevelImageText))
+            // createDiv()
+            LevelImageText = new CreateInput("🔧LevelImageText", QuoteConvert(quality.LevelImageText))
         }
 
         // Button to create the Json
