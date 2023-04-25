@@ -8,6 +8,7 @@ function preload() {
     frame = loadImage(p + "frame" + e)
     paperstack = loadImage(p + "paperstackgaz" + e)
     repair = loadImage(p + "repairgaz" + e)
+    shipequipment = loadImage(p + "shipequipment" + e)
 
     let cms = "comingsoon/comingsoon"
     placeholder = {
@@ -18,7 +19,6 @@ function preload() {
 
     gitAvatar = loadImage(p + "logos/gitAvatar" + e) // http://avatars.githubusercontent.com/u/72989508
     gitLogo = loadImage(p + "logos/gitLogo" + e) // http://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-
 
     Fontin = { // http://eljbris.com/fontin.html
         Regular: loadFont("styles/Fontin-Regular.ttf"),
