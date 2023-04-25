@@ -3,7 +3,7 @@ let previousTab = []
 
 // Catches any errors in the program and shows you a prompt
 window.onerror = function (message, source, line, column, error) {
-    alert("Error: " + source + " " + line + " " + column + " " + message + "\n\nShow me this message on the Github Issues page");
+    alert("Error: " + source + "\n" + line + " " + column + " " + message + "\n\nShow me this message on the Github Issues page");
 }
 
 function setup() {
