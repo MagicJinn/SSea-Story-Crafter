@@ -107,10 +107,47 @@ var refresh = false
 let save = false
 var errors = 0 // This value just tracks how many try statements fail. Nothing to worry about.
 function QualityTab() {
-    ImageGaz(repair)
-    PageTitle("Under Construction")
-    PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
-    if (!domSetup) { // Create all buttons.
+    /*
+    All preview UI related to creating qualities.
+    This contains examples of what your quality will look like when creating it.
+    The preview will change depending on what kind of quality you are creating (goods, curiosities, status,)
+    */
+
+    if (quality.AssignToSlot !== null) { // Check if the quality is equipable
+        const DECK = 102966
+        const AUXILARY = 102967
+        const BRIDGE = 102964
+        const ENGINES = 102904
+        const FORWARD = 102968
+        const AFT = 102965
+        if (quality.AssignToSlot.Id == DECK || quality.AssignToSlot.Id == AUXILARY || quality.AssignToSlot.Id == BRIDGE || quality.AssignToSlot.Id == ENGINES || quality.AssignToSlot.Id == FORWARD || quality.AssignToSlot.Id == AFT) { // Check if it's ship equipment
+            image(shipequipment, 200, 350)
+                        if (quality.AssignToSlot.Id == DECK) {
+
+            } else if (quality.AssignToSlot.Id == AUXILARY) {
+
+            } else if (quality.AssignToSlot.Id == BRIDGE) {
+
+            } else if (quality.AssignToSlot.Id == ENGINES) {
+
+            } else if (quality.AssignToSlot.Id == FORWARD) {
+
+            } else if (quality.AssignToSlot == AFT) {
+
+            }
+        }
+    } else { // Quality is not defined yet.
+        ImageGaz(repair)
+        PageTitle("Under Construction")
+        PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
+    }
+    /*
+    What follows is all code to create and refresh DOM Elements. This should probably be entirely rewritten in the future.
+    Due to the nature of DOM elements, whenever a value is changed that necessitates new fields to be created (for example, advanced mode is enabled), all DOM elements need to be destroyed and recreated.
+    All values in DOM elements are saved, then new elements are created containing the saved values.
+    This creates a large amount of errors, since due to my limited coding knowledge, the program tries to save values that do not exist (yet). Try statements "fix" that. 
+    */
+    if (!domSetup) {
         createSpan("Id: ")
         Id = createInput(QuoteConvert(quality.Id))
         createDiv()
