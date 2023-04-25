@@ -1,6 +1,6 @@
 class CreateInput {
     constructor(description, input, type = "text") {
-        createSpan(description)
+        createSpan(description + ": ")
         this.heldValue = createInput(input, type)
         createDiv()
     }
