@@ -7,6 +7,9 @@ class CreateInput {
     value() {
         return this.heldValue.value()
     }
+    size(x,y){
+        this.heldValue.size(x, y)
+    }
 }
 
 class CreateCheckbox {
