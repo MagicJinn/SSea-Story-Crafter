@@ -15,9 +15,7 @@ class CreateCheckbox {
         this.heldValue = createCheckbox(description, input)
         createDiv()
     }
-    changed() {
-        this.heldValue.changed(function () {
-            return !input
-        })
+    value(){
+        return this.heldValue.checked()
     }
 }
