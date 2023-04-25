@@ -2,7 +2,7 @@ function Tabs() {
     textAlign(CENTER, CENTER)
     textSize(16)
     textFont(Fontin.SmallCaps)
-    const tabs = ["Info", "Qualities", "Stories","More"]
+    const tabs = ["Info", "Qualities", "Stories", "More"]
     const buttonWidth = 1.2
     for (let i = 0; i < tabs.length; i++) {
         if (!currentTab[i]) {
@@ -205,52 +205,50 @@ function QualityTab() {
             IsSlot = createCheckbox("🔧IsSlot", quality.IsSlot)
             createDiv()
 
-            if (quality.IsSlot) {
-                meta.AssignToSlot = {
-                    RelationshipCapable: false,
-                    OwnerName: "StoryCrafter",
-                    Description: "",
-                    Image: null,
-                    Notes: null,
-                    Tag: null,
-                    Cap: null,
-                    HimbleLevel: 0,
-                    UsePyramidNumbers: false,
-                    PyramidNumberIncreaseLimit: 50,
-                    AvailableAt: null,
-                    PreventNaming: false,
-                    CssClasses: null,
-                    World: null,
-                    Ordering: 0,
-                    IsSlot: false,
-                    LimitedToArea: null,
-                    AssignToSlot: null,
-                    Persistent: false,
-                    QualitiesWhichAllowSecondChanceOnThis: [],
-                    Visible: true,
-                    Enhancements: [],
-                    EnhancementsDescription: null,
-                    AllowsSecondChancesOnChallengesForQuality: null,
-                    GivesTrophy: null,
-                    UseEvent: null,
-                    DifficultyTestType: "Broad",
-                    DifficultyScaler: 60,
-                    AllowedOn: "Unspecified",
-                    Nature: "Unspecified",
-                    Category: "Unspecified",
-                    LevelDescriptionText: null,
-                    ChangeDescriptionText: null,
-                    LevelImageText: null,
-                    Name: "",
-                    Id: null
-                }
-                if (quality.AssignToSlot == null) {
-                    quality.AssignToSlot = meta.AssignToSlot
-                }
-                createSpan("└ AssignToSlot")
-                meta.AssignToSlot.Id = createInput(QuoteConvert(quality.AssignToSlot.Id))
-                createDiv()
+            meta.AssignToSlot = {
+                RelationshipCapable: false,
+                OwnerName: "StoryCrafter",
+                Description: "",
+                Image: null,
+                Notes: null,
+                Tag: null,
+                Cap: null,
+                HimbleLevel: 0,
+                UsePyramidNumbers: false,
+                PyramidNumberIncreaseLimit: 50,
+                AvailableAt: null,
+                PreventNaming: false,
+                CssClasses: null,
+                World: null,
+                Ordering: 0,
+                IsSlot: false,
+                LimitedToArea: null,
+                AssignToSlot: null,
+                Persistent: false,
+                QualitiesWhichAllowSecondChanceOnThis: [],
+                Visible: true,
+                Enhancements: [],
+                EnhancementsDescription: null,
+                AllowsSecondChancesOnChallengesForQuality: null,
+                GivesTrophy: null,
+                UseEvent: null,
+                DifficultyTestType: "Broad",
+                DifficultyScaler: 60,
+                AllowedOn: "Unspecified",
+                Nature: "Unspecified",
+                Category: "Unspecified",
+                LevelDescriptionText: null,
+                ChangeDescriptionText: null,
+                LevelImageText: null,
+                Name: "",
+                Id: null
             }
+            if (quality.AssignToSlot == null) {
+                quality.AssignToSlot = meta.AssignToSlot
+            }
+            createSpan("🔧 AssignToSlot")
+            meta.AssignToSlot.Id = createInput(QuoteConvert(quality.AssignToSlot.Id))
+            createDiv()
 
             createSpan("🔧Enhancements: ")
             EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
@@ -529,15 +527,16 @@ function QualityTab() {
                     errors++
                 }
             }
-            // quality.IsSlot is saved somewhere else
-            if (quality.IsSlot) {
-                try {
-                    quality.AssignToSlot = meta.AssignToSlot
-                    quality.AssignToSlot.Id = Number(NullConvert(meta.AssignToSlot.Id.value()))
-                } catch (error) {
-                    errors++
+            try {
+                if (NullConvert(meta.AssignToSlot.Id.value()) == undefined || NullConvert(meta.AssignToSlot.Id.value()) == null) {
+                    quality.AssignToSlot = null
+                } else {
+                    quality.AssignToSlot.Id = Number(meta.AssignToSlot.Id.value())
                 }
+            } catch (error) {
+                errors++
             }
+
             try {
                 quality.AvailableAt = NullConvert(AvailableAt.value())
             } catch (error) {
