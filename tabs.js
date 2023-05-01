@@ -521,7 +521,6 @@ function QualityTab() {
                 // meta.EAMouseOut = false
             }
         } catch (error) {
-            print(error)
             errors++
         }
         try {
