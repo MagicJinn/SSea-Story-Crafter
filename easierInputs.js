@@ -7,8 +7,28 @@ class CreateInput {
     value() {
         return this.heldValue.value()
     }
-    size(x,y){
+    size(x, y) {
         this.heldValue.size(x, y)
+    }
+    changed() {
+        this.heldValue.changed(() => {
+            this.valueChanged = true;
+        })
+
+        this.heldValue.mouseOver(() => {
+            this.mouseIsOut = false;
+        })
+
+        this.heldValue.mouseOut(() => {
+            this.mouseIsOut = true;
+        })
+
+        if (this.valueChanged && this.mouseIsOut) {
+            this.valueChanged = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -18,7 +38,7 @@ class CreateCheckbox {
         this.heldValue = createCheckbox(description, input)
         createDiv()
     }
-    value(){
+    value() {
         return this.heldValue.checked()
     }
 }

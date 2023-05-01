@@ -295,11 +295,11 @@ function QualityTab() {
             // createDiv()
             meta.AssignToSlot.Id = new CreateInput("🔧 AssignToSlot", QuoteConvert(quality.AssignToSlot.Id))
 
-            createSpan("🔧Enhancements: ")
-            EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
-            // EnhancementsAmount = new CreateInput("🔧Enhancements",meta.EnhancementsAmount, "number")
+            // createSpan("🔧Enhancements: ")
+            // EnhancementsAmount = createInput(meta.EnhancementsAmount, "number")
+            EnhancementsAmount = new CreateInput("🔧Enhancements", meta.EnhancementsAmount, "number")
             EnhancementsAmount.size(40, 22)
-            createDiv()
+            // createDiv()
 
             meta.Enhancements = []
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
@@ -502,22 +502,27 @@ function QualityTab() {
                 quality.IsSlot = !quality.IsSlot
                 refresh = true
             })
-            EnhancementsAmount.changed(function () {
-                meta.EAChanged = true
-            })
-            EnhancementsAmount.mouseOver(function () {
-                meta.EAMouseOut = false
-            })
-            EnhancementsAmount.mouseOut(function () {
-                meta.EAMouseOut = true
-            })
+            // EnhancementsAmount.changed(function () {
+            //     meta.EAChanged = true
+            // })
+            // EnhancementsAmount.mouseOver(function () {
+            //     meta.EAMouseOut = false
+            // })
+            // EnhancementsAmount.mouseOut(function () {
+            //     meta.EAMouseOut = true
+            // })
         } catch (error) {
             errors++
         }
-        if (meta.EAMouseOut && meta.EAChanged) {
-            refresh = true
-            meta.EAChanged = false
-            meta.EAMouseOut = false
+        try {
+            if (EnhancementsAmount.changed()) {
+                refresh = true
+                // meta.EAChanged = false
+                // meta.EAMouseOut = false
+            }
+        } catch (error) {
+            print(error)
+            errors++
         }
         try {
             DifficultyTestType.changed(function () {
