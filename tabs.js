@@ -73,17 +73,15 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     advancedMode: false, // Whether advancedMode is activated
     AssignToSlot: null,
     EnhancementsAmount: 0, // How many fields you have for Enhancements
-    // Check if the EnhancementsAmount is updated
     EnhancementsLevel: [],
     EnhancementsAssociatedQualityId: [],
     EnhancementsId: []
 }
 
-const uninitiated = "undefined"
+const uninitialized = "undefined"
 
 var refresh = false
 let save = false
-var errors = 0 // This value just tracks how many try statements fail. Nothing to worry about.
 function QualityTab() {
     /*
     All preview UI related to creating qualities.
@@ -126,7 +124,6 @@ function QualityTab() {
     What follows is all code to create and refresh DOM Elements. This should probably be entirely rewritten in the future. (Update, rewrites are happening, kinda)
     Due to the nature of DOM elements, whenever a value is changed that necessitates new fields to be created (for example, advanced mode is enabled), all DOM elements need to be destroyed and recreated.
     All values in DOM elements are saved, then new elements are created containing the saved values.
-    This creates a large amount of errors, since due to my limited coding knowledge, the program tries to save values that do not exist (yet). Try statements "fix" that. 
     */
     if (!domSetup) {
         Id = new CreateInput("Id", QuoteConvert(quality.Id))
@@ -194,16 +191,13 @@ function QualityTab() {
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
                 createDiv(`└ Enhancement ${i+1}: `)
-                meta.EnhancementsLevel[i] = new CreateInput("Level", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].Level) : QuoteConvert(enhancementsDefault.Level))
-                meta.EnhancementsAssociatedQualityId[i] = new CreateInput("AssociatedQuality", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id) : QuoteConvert(enhancementsDefault.AssociatedQuality.Id))
-                meta.EnhancementsId[i] = new CreateInput("Id", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].Id) : QuoteConvert(enhancementsDefault.Id))
+                meta.EnhancementsLevel[i] = new CreateInput("Level", QuoteConvert(typeof quality.Enhancements[i] !== uninitialized ? quality.Enhancements[i].Level : enhancementsDefault.Level))
+                meta.EnhancementsAssociatedQualityId[i] = new CreateInput("AssociatedQuality", QuoteConvert(typeof quality.Enhancements[i] !== uninitialized ? quality.Enhancements[i].AssociatedQuality.Id : enhancementsDefault.AssociatedQuality.Id))
+                meta.EnhancementsId[i] = new CreateInput("Id", QuoteConvert(typeof quality.Enhancements[i] !== uninitialized ? quality.Enhancements[i].Id : enhancementsDefault.Id))
                 createP() // Creates larger gap.
             }
 
-            if (quality.UseEvent == undefined || quality.UseEvent == null) {
-                quality.UseEvent = eventDefault
-            }
-            UseEvent = new CreateInput("🔧UseEvent", QuoteConvert(quality.UseEvent.Id))
+            UseEvent = new CreateInput("🔧UseEvent", QuoteConvert(quality.UseEvent !== null ? quality.UseEvent.Id : eventDefault.Id))
 
             createSpan("🔧DifficultyTestType: ")
             DifficultyTestType = createSelect()
@@ -253,7 +247,7 @@ function QualityTab() {
     advancedMode.changed()
 
     if (meta.advancedMode) {
-        if (typeof UsePyramidNumbers !== uninitiated && typeof IsSlot !== uninitiated && typeof AssignToSlotId !== uninitiated && typeof EnhancementsAmount !== uninitiated && typeof DifficultyTestType !== uninitiated && typeof AllowedOn !== uninitiated) {
+        if (typeof UsePyramidNumbers !== uninitialized && typeof IsSlot !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof AllowedOn !== uninitialized) {
             UsePyramidNumbers.changed()
             AssignToSlotId.changed()
             EnhancementsAmount.changed()
@@ -279,107 +273,59 @@ function QualityTab() {
         quality.Persistent = Persistent.value()
         quality.Nature = Nature.value()
         if (Nature.value() == "Status") {
-            quality.Category = typeof CategoryStatus !== uninitiated ? CategoryStatus.value() : "Unspecified"
+            quality.Category = typeof CategoryStatus !== uninitialized ? CategoryStatus.value() : "Unspecified"
         } else if (Nature.value() == "Thing") {
-            quality.category = typeof CategoryThing !== uninitiated ? CategoryThing.value() : "Unspecified"
+            quality.category = typeof CategoryThing !== uninitialized ? CategoryThing.value() : "Unspecified"
         }
 
         if (meta.advancedMode) {
-            print(typeof Notes !== uninitiated, typeof Tag !== uninitiated, typeof Cap !== uninitiated, typeof UsePyramidNumbers !== uninitiated, typeof AssignToSlotId !== uninitiated)
-            if (typeof Notes !== uninitiated && typeof Tag !== uninitiated && typeof Cap !== uninitiated && typeof UsePyramidNumbers !== uninitiated && typeof AssignToSlotId !== uninitiated) {
+            if (typeof Notes !== uninitialized && typeof Tag !== uninitialized && typeof Cap !== uninitialized && typeof UsePyramidNumbers !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof AvailableAt !== uninitialized && typeof Ordering !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof UseEvent !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof DifficultyScaler !== uninitialized && typeof AllowedOn !== uninitialized && typeof LevelDescriptionText !== uninitialized && typeof ChangeDescriptionText !== uninitialized && LevelImageText !== uninitialized) {
                 quality.Notes = Notes.value()
                 quality.Tag = Tag.value()
                 let CapValue = NullConvert(Cap.value())
                 quality.Cap = CapValue !== null ? Number(CapValue) : CapValue
                 quality.UsePyramidNumbers = UsePyramidNumbers.value()
-
-                if (quality.UsePyramidNumbers && typeof PyramidNumberIncreaseLimit !== uninitiated) {
-                    // try {
+                if (quality.UsePyramidNumbers && typeof PyramidNumberIncreaseLimit !== uninitialized) {
                     quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
-                    // } catch (error) {
-                    //     errors++
-                    // }
                 }
-                // try {
                 let AssignToSlotValue = NullConvert(AssignToSlotId.value())
-                quality.AssignToSlot = AssignToSlotValue !== null ? Number(AssignToSlotValue) : AssignToSlotValue
-                // if ( AssignToSlotValue == undefined || AssignToSlotValue == null) {
-                //     quality.AssignToSlot = AssignToSlotValue
-                // } else {
-                //     quality.AssignToSlot.Id = Number(AssignToSlotValue)
-                // }
-                // } catch (error) {
-                //     errors++
-                // }
-            }
-            try {
-                quality.AvailableAt = NullConvert(AvailableAt.value())
-            } catch (error) {
-                errors++
-            }
-            try {
-                quality.Ordering = Number(Ordering.value())
-            } catch (error) {
-                errors++
-            }
-            try {
-                meta.EnhancementsAmount = Number(EnhancementsAmount.value())
-            } catch (error) {
-                errors++
-            }
-            try {
-                for (let i = 0; i < meta.Enhancements.length; i++) {
-                    quality.Enhancements[i].Level = Number(NullConvert(meta.EnhancementsLevel[i].value()))
-                    quality.Enhancements[i].AssociatedQuality.Id = Number(NullConvert(meta.EnhancementsAssociatedQualityId[i].value()))
-                    quality.Enhancements[i].Id = Number(NullConvert(meta.EnhancementsId[i].value()))
-                }
-            } catch (error) {
-                errors++
-            }
-            try {
-                if (NullConvert(UseEvent.value()) == undefined || NullConvert(UseEvent.value()) == null) {
-                    quality.UseEvent = null
+                if (AssignToSlotValue !== null) {
+                    quality.AssignToSlot = qualityDefault
+                    quality.AssignToSlot.Id = Number(AssignToSlotValue)
                 } else {
-                    quality.UseEvent.Id = Number(UseEvent.value())
+                    quality.AssignToSlot = AssignToSlotValue
                 }
-            } catch (error) {
-                errors++
-            }
-            try {
+                quality.AvailableAt = NullConvert(AvailableAt.value())
+                quality.Ordering = Number(Ordering.value())
+                meta.EnhancementsAmount = Number(EnhancementsAmount.value())
+                for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                    try {
+                        quality.Enhancements[i].Level = Number(NullConvert(meta.EnhancementsLevel[i].value()))
+                        quality.Enhancements[i].AssociatedQuality.Id = Number(NullConvert(meta.EnhancementsAssociatedQualityId[i].value()))
+                        quality.Enhancements[i].Id = Number(NullConvert(meta.EnhancementsId[i].value()))
+                    } catch (error) {
+                        break
+                    }
+                }
+
+                let UseEventValue = NullConvert(UseEvent.value())
+                if (UseEventValue !== null) {
+                    quality.UseEvent = eventDefault
+                    quality.UseEvent.Id = Number(UseEvent.value())
+                } else {
+                    quality.UseEvent = UseEventValue
+                }
                 quality.DifficultyTestType = DifficultyTestType.value()
-            } catch (error) {
-                errors++
-            }
-            try {
                 quality.DifficultyScaler = Number(DifficultyScaler.value())
-            } catch (error) {
-                errors++
-            }
-            try {
                 quality.AllowedOn = AllowedOn.value()
-            } catch (error) {
-                errors++
-            }
-            try {
                 quality.LevelDescriptionText = NullConvert(LevelDescriptionText.value())
-            } catch (error) {
-                errors++
-            }
-            try {
                 quality.ChangeDescriptionText = NullConvert(ChangeDescriptionText.value())
-            } catch (error) {
-                errors++
-            }
-            try {
                 quality.LevelImageText = NullConvert(LevelImageText.value())
-            } catch (error) {
-                errors++
             }
+
         }
         RefreshDom() // Refresh all DOMs
         refresh = false
-        console.log(errors)
-        errors = 0
     }
     if (save) {
         SaveQuality(quality)
