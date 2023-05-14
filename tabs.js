@@ -2,7 +2,7 @@ function Tabs() {
     textAlign(CENTER, CENTER)
     textSize(16)
     textFont(Fontin.SmallCaps)
-    const tabs = ["Info", "Qualities", "Stories", "More"]
+    const tabs = ["Info", "Qualities", "Stories", "Shops", "More"]
     const buttonWidth = 1.2
     for (let i = 0; i < tabs.length; i++) {
         if (!currentTab[i]) {
@@ -82,6 +82,7 @@ const uninitialized = "undefined"
 
 var refresh = false
 let save = false
+
 function QualityTab() {
     /*
     All preview UI related to creating qualities.
@@ -337,4 +338,10 @@ function StoryTab() {
     ImageGaz(repair)
     PageTitle("Under Construction")
     PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
+}
+
+function ShopsTab() {
+    ImageGaz()
+    PageTitle()
+    PageDescription()
 }

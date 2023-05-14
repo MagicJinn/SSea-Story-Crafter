@@ -23,6 +23,8 @@ function draw() {
     } else if (currentTab[2]) {
         StoryTab()
     } else if (currentTab[3]) {
+        ShopsTab()
+    } else if (currentTab[4]){
         ImageGaz()
         PageTitle()
         PageDescription()
