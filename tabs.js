@@ -79,7 +79,7 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     EnhancementsId: []
 }
 
-var uninitiated = "undefined"
+const uninitiated = "undefined"
 
 var refresh = false
 let save = false
@@ -133,10 +133,7 @@ function QualityTab() {
         Name = new CreateInput("Name", QuoteConvert(quality.name))
         Description = new CreateInput("Description", quality.Description)
         Image = new CreateInput("Image", quality.Image)
-
-        createSpan()
-        Persistent = createCheckbox("Persistent", quality.Persistent) // REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS
-        createDiv()
+        Persistent = new CreateCheckbox("Persistent", quality.Persistent)
 
         createSpan("Nature: ")
         Nature = createSelect()
@@ -172,15 +169,12 @@ function QualityTab() {
             createDiv()
         }
 
-        advancedMode = createCheckbox("🔧 Advanced Mode", meta.advancedMode)
+        advancedMode = new CreateCheckbox("🔧 Advanced Mode", meta.advancedMode, true)
         if (meta.advancedMode) {
             Notes = new CreateInput("🔧 Notes", QuoteConvert(quality.Notes))
             Tag = new CreateInput("🔧 Tag", QuoteConvert(quality.Tag))
             Cap = new CreateInput("🔧 Cap", QuoteConvert(quality.Cap))
-
-            createSpan()
-            UsePyramidNumbers = createCheckbox("🔧 UsePyramidNumbers", quality.UsePyramidNumbers) // REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS
-            createDiv()
+            UsePyramidNumbers = new CreateCheckbox("🔧 UsePyramidNumbers", quality.UsePyramidNumbers, true)
             if (quality.UsePyramidNumbers) {
                 PyramidNumberIncreaseLimit = new CreateInput("└ PyramidNumberIncreaseLimit", quality.PyramidNumberIncreaseLimit)
             }
@@ -188,23 +182,21 @@ function QualityTab() {
             AvailableAt = new CreateInput("🔧AvailableAt", QuoteConvert(quality.AvailableAt))
             Ordering = new CreateInput("🔧Ordering", quality.Ordering)
 
-            createSpan()
-            IsSlot = createCheckbox("🔧IsSlot", quality.IsSlot) // REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS REWRITE THIS
-            createDiv()
+            IsSlot = new CreateCheckbox("🔧IsSlot", quality.IsSlot)
 
             if (quality.AssignToSlot == null) {
                 quality.AssignToSlot = qualityDefault
             }
-            AssignToSlotId = new CreateInput("🔧 AssignToSlot", QuoteConvert(quality.AssignToSlot.Id))
+            AssignToSlotId = new CreateInput("🔧 AssignToSlot", QuoteConvert(quality.AssignToSlot.Id), "text", true)
 
-            EnhancementsAmount = new CreateInput("🔧Enhancements", meta.EnhancementsAmount, "number")
+            EnhancementsAmount = new CreateInput("🔧Enhancements", meta.EnhancementsAmount, "number", true)
             EnhancementsAmount.size(40, 22)
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
                 createDiv(`└ Enhancement ${i+1}: `)
                 meta.EnhancementsLevel[i] = new CreateInput("Level", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].Level) : QuoteConvert(enhancementsDefault.Level))
                 meta.EnhancementsAssociatedQualityId[i] = new CreateInput("AssociatedQuality", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id) : QuoteConvert(enhancementsDefault.AssociatedQuality.Id))
-                meta.EnhancementsId[i] = new CreateInput("Id", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].Id):QuoteConvert(enhancementsDefault.Id))
+                meta.EnhancementsId[i] = new CreateInput("Id", typeof quality.Enhancements[i] !== uninitiated ? QuoteConvert(quality.Enhancements[i].Id) : QuoteConvert(enhancementsDefault.Id))
                 createP() // Creates larger gap.
             }
 
@@ -220,9 +212,6 @@ function QualityTab() {
             DifficultyTestType.selected(quality.DifficultyTestType)
             createDiv()
 
-            // createSpan("└ DifficultyScaler: ")
-            // DifficultyScaler = createInput(quality.DifficultyScaler)
-            // createDiv()
             DifficultyScaler = new CreateInput("└ DifficultyScaler", quality.DifficultyScaler)
 
             createSpan("🔧AllowedOn: ")
@@ -232,19 +221,8 @@ function QualityTab() {
             AllowedOn.selected(quality.AllowedOn)
             createDiv()
 
-            // createSpan("🔧LevelDescriptionText: ")
-            // LevelDescriptionText = createInput(QuoteConvert(quality.LevelDescriptionText))
-            // createDiv()
             LevelDescriptionText = new CreateInput("🔧LevelDescriptionText", QuoteConvert(quality.LevelDescriptionText))
-
-            // createSpan("🔧ChangeDescriptionText: ")
-            // ChangeDescriptionText = createInput(QuoteConvert(quality.ChangeDescriptionText))
-            // createDiv()
             ChangeDescriptionText = new CreateInput("🔧ChangeDescriptionText", QuoteConvert(quality.ChangeDescriptionText))
-
-            // createSpan("🔧LevelImageText: ")
-            // LevelImageText = createInput(QuoteConvert(quality.LevelImageText))
-            // createDiv()
             LevelImageText = new CreateInput("🔧LevelImageText", QuoteConvert(quality.LevelImageText))
         }
 
@@ -259,9 +237,6 @@ function QualityTab() {
     }
 
     // Check for changes that require a refresh
-    Persistent.changed(function () {
-        quality.Persistent = !quality.Persistent
-    })
     Nature.changed(function () {
         refresh = true
     })
@@ -275,117 +250,68 @@ function QualityTab() {
         })
     }
 
-    advancedMode.changed(function () {
-        meta.advancedMode = !meta.advancedMode
-        refresh = true
-    })
+    advancedMode.changed()
+
     if (meta.advancedMode) {
-        try {
-            UsePyramidNumbers.changed(function () {
-                quality.UsePyramidNumbers = !quality.UsePyramidNumbers
-                refresh = true
-            })
-            IsSlot.changed(function () {
-                quality.IsSlot = !quality.IsSlot
-                refresh = true
-            })
-            if (AssignToSlotId.changed()) {
-                refresh = true
-            }
-            // EnhancementsAmount.changed(function () {
-            //     meta.EAChanged = true
-            // })
-            // EnhancementsAmount.mouseOver(function () {
-            //     meta.EAMouseOut = false
-            // })
-            // EnhancementsAmount.mouseOut(function () {
-            //     meta.EAMouseOut = true
-            // })
-        } catch (error) {
-            errors++
-        }
-        try {
-            if (EnhancementsAmount.changed()) {
-                refresh = true
-                // meta.EAChanged = false
-                // meta.EAMouseOut = false
-            }
-        } catch (error) {
-            errors++
-        }
-        try {
+        if (typeof UsePyramidNumbers !== uninitiated && typeof IsSlot !== uninitiated && typeof AssignToSlotId !== uninitiated && typeof EnhancementsAmount !== uninitiated && typeof DifficultyTestType !== uninitiated && typeof AllowedOn !== uninitiated) {
+            UsePyramidNumbers.changed()
+            AssignToSlotId.changed()
+            EnhancementsAmount.changed()
             DifficultyTestType.changed(function () {
                 refresh = true
             })
-        } catch (error) {
-            errors++
-        }
-        try {
             AllowedOn.changed(function () {
                 refresh = true
             })
-        } catch (error) {
-            errors++
         }
     }
 
     if (refresh) {
-        quality.Id = Number(NullConvert(Id.value()))
+        // Save meta values
+        meta.advancedMode = advancedMode.value()
+
+        // Save all quality values
+        let IdValue = NullConvert(Id.value())
+        quality.Id = IdValue !== null ? Number(IdValue) : IdValue
         quality.Name = NullConvert(Name.value())
         quality.Description = Description.value()
         quality.Image = Image.value()
+        quality.Persistent = Persistent.value()
         quality.Nature = Nature.value()
-        // try {
         if (Nature.value() == "Status") {
             quality.Category = typeof CategoryStatus !== uninitiated ? CategoryStatus.value() : "Unspecified"
-            //         quality.Category = CategoryStatus.value()
         } else if (Nature.value() == "Thing") {
             quality.category = typeof CategoryThing !== uninitiated ? CategoryThing.value() : "Unspecified"
-            //         quality.Category = CategoryThing.value()
         }
-        // } catch (error) {
-        //     errors++
-        // }
 
         if (meta.advancedMode) {
-            try {
+            print(typeof Notes !== uninitiated, typeof Tag !== uninitiated, typeof Cap !== uninitiated, typeof UsePyramidNumbers !== uninitiated, typeof AssignToSlotId !== uninitiated)
+            if (typeof Notes !== uninitiated && typeof Tag !== uninitiated && typeof Cap !== uninitiated && typeof UsePyramidNumbers !== uninitiated && typeof AssignToSlotId !== uninitiated) {
                 quality.Notes = Notes.value()
-            } catch (error) {
-                errors++
-            }
-            try {
                 quality.Tag = Tag.value()
-            } catch (error) {
-                errors++
-            }
-            try {
-                let CapNumber = NullConvert(Cap.value())
-                if (CapNumber == null) {
-                    quality.Cap = CapNumber
-                } else {
-                    quality.Cap = Number(CapNumber)
-                }
-            } catch (error) {
-                errors++
-            }
-            // quality.UsePyramidNumbers is saved somewhere else
-            if (quality.UsePyramidNumbers) {
-                try {
-                    quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
-                } catch (error) {
-                    errors++
-                }
-            }
-            try {
-                if (NullConvert(AssignToSlotId.value()) == undefined || NullConvert(AssignToSlotId.value()) == null) {
-                    quality.AssignToSlot = null
-                } else {
-                    quality.AssignToSlot.Id = Number(AssignToSlotId.value())
-                }
-            } catch (error) {
-                errors++
-            }
+                let CapValue = NullConvert(Cap.value())
+                quality.Cap = CapValue !== null ? Number(CapValue) : CapValue
+                quality.UsePyramidNumbers = UsePyramidNumbers.value()
 
+                if (quality.UsePyramidNumbers && typeof PyramidNumberIncreaseLimit !== uninitiated) {
+                    // try {
+                    quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
+                    // } catch (error) {
+                    //     errors++
+                    // }
+                }
+                // try {
+                let AssignToSlotValue = NullConvert(AssignToSlotId.value())
+                quality.AssignToSlot = AssignToSlotValue !== null ? Number(AssignToSlotValue) : AssignToSlotValue
+                // if ( AssignToSlotValue == undefined || AssignToSlotValue == null) {
+                //     quality.AssignToSlot = AssignToSlotValue
+                // } else {
+                //     quality.AssignToSlot.Id = Number(AssignToSlotValue)
+                // }
+                // } catch (error) {
+                //     errors++
+                // }
+            }
             try {
                 quality.AvailableAt = NullConvert(AvailableAt.value())
             } catch (error) {
