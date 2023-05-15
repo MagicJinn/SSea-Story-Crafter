@@ -70,7 +70,7 @@ function InfoTab() {
 var quality = qualityDefault
 
 var meta = { // Values that are used in the UI, but not passed through to the json builder
-    advancedMode: false, // Whether advancedMode is activated
+    AdvancedMode: false, // Whether AdvancedMode is activated
     AssignToSlot: null,
     EnhancementsAmount: 0, // How many fields you have for Enhancements
     EnhancementsLevel: [],
@@ -167,8 +167,8 @@ function QualityTab() {
             createDiv()
         }
 
-        advancedMode = new CreateCheckbox("🔧 Advanced Mode", meta.advancedMode, true)
-        if (meta.advancedMode) {
+        AdvancedMode = new CreateCheckbox("🔧 Advanced Mode", meta.AdvancedMode, true)
+        if (meta.AdvancedMode) {
             Notes = new CreateInput("🔧 Notes", QuoteConvert(quality.Notes))
             Tag = new CreateInput("🔧 Tag", QuoteConvert(quality.Tag))
             Cap = new CreateInput("🔧 Cap", QuoteConvert(quality.Cap))
@@ -245,9 +245,9 @@ function QualityTab() {
         })
     }
 
-    advancedMode.changed()
+    AdvancedMode.changed()
 
-    if (meta.advancedMode) {
+    if (meta.AdvancedMode) {
         if (typeof UsePyramidNumbers !== uninitialized && typeof IsSlot !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof AllowedOn !== uninitialized) {
             UsePyramidNumbers.changed()
             AssignToSlotId.changed()
@@ -262,9 +262,6 @@ function QualityTab() {
     }
 
     if (refresh) {
-        // Save meta values
-        meta.advancedMode = advancedMode.value()
-
         // Save all quality values
         let IdValue = NullConvert(Id.value())
         quality.Id = IdValue !== null ? Number(IdValue) : IdValue
@@ -279,8 +276,8 @@ function QualityTab() {
             quality.category = typeof CategoryThing !== uninitialized ? CategoryThing.value() : "Unspecified"
         }
 
-        if (meta.advancedMode) {
-            if (typeof Notes !== uninitialized && typeof Tag !== uninitialized && typeof Cap !== uninitialized && typeof UsePyramidNumbers !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof AvailableAt !== uninitialized && typeof Ordering !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof UseEvent !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof DifficultyScaler !== uninitialized && typeof AllowedOn !== uninitialized && typeof LevelDescriptionText !== uninitialized && typeof ChangeDescriptionText !== uninitialized && LevelImageText !== uninitialized) {
+        if (meta.AdvancedMode) {
+            if (true /*typeof Notes !== uninitialized && typeof Tag !== uninitialized && typeof Cap !== uninitialized && typeof UsePyramidNumbers !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof AvailableAt !== uninitialized && typeof Ordering !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof UseEvent !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof DifficultyScaler !== uninitialized && typeof AllowedOn !== uninitialized && typeof LevelDescriptionText !== uninitialized && typeof ChangeDescriptionText !== uninitialized && LevelImageText !== uninitialized*/ ) {
                 quality.Notes = Notes.value()
                 quality.Tag = Tag.value()
                 let CapValue = NullConvert(Cap.value())
@@ -298,7 +295,6 @@ function QualityTab() {
                 }
                 quality.AvailableAt = NullConvert(AvailableAt.value())
                 quality.Ordering = Number(Ordering.value())
-                meta.EnhancementsAmount = Number(EnhancementsAmount.value())
                 for (let i = 0; i < meta.EnhancementsAmount; i++) {
                     try {
                         quality.Enhancements[i].Level = Number(NullConvert(meta.EnhancementsLevel[i].value()))
@@ -325,6 +321,10 @@ function QualityTab() {
             }
 
         }
+        // Save meta values
+        meta.AdvancedMode = AdvancedMode.value()
+        meta.EnhancementsAmount = Number(EnhancementsAmount.value())
+
         RefreshDom() // Refresh all DOMs
         refresh = false
     }
