@@ -186,7 +186,7 @@ function QualityTab() {
             }
             AssignToSlotId = new CreateInput("🔧 AssignToSlot", QuoteConvert(quality.AssignToSlot.Id), "text", true)
 
-            EnhancementsAmount = new CreateInput("🔧Enhancements", meta.EnhancementsAmount, "number", true)
+            EnhancementsAmount = new CreateInput("🔧Enhancements (non functional. Reason: https://tenor.com/view/cat-insane-gif-21702784)", meta.EnhancementsAmount, "number", true)
             EnhancementsAmount.size(40, 22)
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
@@ -201,7 +201,7 @@ function QualityTab() {
                 createDiv(`└ Enhancement ${i+1}: `)
                 Enhancements[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
                 Enhancements[i].AssociatedQualityId = new CreateInput("AssociatedQualityId", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
-                Enhancements[i].Id = new CreateInput = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
+                Enhancements[i].Id = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
                 createP() // Creates larger gap.
             }
 
