@@ -73,10 +73,9 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     AdvancedMode: false, // Whether AdvancedMode is activated
     AssignToSlot: null,
     EnhancementsAmount: 0, // How many fields you have for Enhancements
-    EnhancementsLevel: [],
-    EnhancementsAssociatedQualityId: [],
-    EnhancementsId: []
 }
+
+var Enhancements = []
 
 const uninitialized = "undefined"
 
@@ -191,10 +190,18 @@ function QualityTab() {
             EnhancementsAmount.size(40, 22)
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                if (quality.Enhancements[i] == null) {
+                    quality.Enhancements[i] = enhancementsDefault
+                }
+                Enhancements[i] = {
+                    Level: null,
+                    AssociatedQualityId: null,
+                    Id: null
+                }
                 createDiv(`└ Enhancement ${i+1}: `)
-                meta.EnhancementsLevel[i] = new CreateInput("Level", QuoteConvert(typeof quality.Enhancements[i] !== uninitialized ? quality.Enhancements[i].Level : enhancementsDefault.Level))
-                meta.EnhancementsAssociatedQualityId[i] = new CreateInput("AssociatedQuality", QuoteConvert(typeof quality.Enhancements[i] !== uninitialized ? quality.Enhancements[i].AssociatedQuality.Id : enhancementsDefault.AssociatedQuality.Id))
-                meta.EnhancementsId[i] = new CreateInput("Id", QuoteConvert(typeof quality.Enhancements[i] !== uninitialized ? quality.Enhancements[i].Id : enhancementsDefault.Id))
+                Enhancements[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
+                Enhancements[i].AssociatedQualityId = new CreateInput("AssociatedQualityId", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
+                Enhancements[i].Id = new CreateInput = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
                 createP() // Creates larger gap.
             }
 
@@ -260,7 +267,11 @@ function QualityTab() {
             })
         }
     }
-
+    for (let i = 0; i < Enhancements.length; i++) {
+        if (Enhancements[i].Level !== undefined) {
+            print("all values: " + Enhancements[i].Level.value())
+        }
+    }
     if (refresh) {
         // Save all quality values
         let IdValue = NullConvert(Id.value())
@@ -295,15 +306,13 @@ function QualityTab() {
                 }
                 quality.AvailableAt = NullConvert(AvailableAt.value())
                 quality.Ordering = Number(Ordering.value())
+
                 for (let i = 0; i < meta.EnhancementsAmount; i++) {
-                    try {
-                        quality.Enhancements[i].Level = Number(NullConvert(meta.EnhancementsLevel[i].value()))
-                        quality.Enhancements[i].AssociatedQuality.Id = Number(NullConvert(meta.EnhancementsAssociatedQualityId[i].value()))
-                        quality.Enhancements[i].Id = Number(NullConvert(meta.EnhancementsId[i].value()))
-                    } catch (error) {
-                        break
-                    }
+                    quality.Enhancements[i].Level = Number(Enhancements[i].Level.value())
+                    quality.Enhancements[i].AssociatedQuality.Id = Number(Enhancements[i].AssociatedQualityId.value())
+                    quality.Enhancements[i].Id = Number(Enhancements[i].Id.value())
                 }
+
 
                 let UseEventValue = NullConvert(UseEvent.value())
                 if (UseEventValue !== null) {
@@ -323,7 +332,9 @@ function QualityTab() {
         }
         // Save meta values
         meta.AdvancedMode = AdvancedMode.value()
-        meta.EnhancementsAmount = Number(EnhancementsAmount.value())
+        if (typeof EnhancementsAmount !== uninitialized) {
+            meta.EnhancementsAmount = Number(EnhancementsAmount.value())
+        }
 
         RefreshDom() // Refresh all DOMs
         refresh = false
