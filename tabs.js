@@ -25,6 +25,11 @@ function Tabs() {
     }
 }
 
+function RefreshDom() { // Removes and allows for the recreation of the DOM's
+    removeElements()
+    domSetup = false
+}
+
 function InfoTab() {
     ImageGaz(paperstack)
     PageTitle("Information")
