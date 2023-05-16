@@ -72,7 +72,7 @@ function InfoTab() {
     }
 }
 
-var quality = qualityDefault
+var quality = cloneDeep(qualityDefault)
 
 var meta = { // Values that are used in the UI, but not passed through to the json builder
     AdvancedMode: false, // Whether AdvancedMode is activated
@@ -80,7 +80,7 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     EnhancementsAmount: 0, // How many fields you have for Enhancements
 }
 
-var Enhancements = []
+var Enh = []
 
 const uninitialized = "undefined"
 
@@ -93,7 +93,7 @@ function QualityTab() {
     This contains examples of what your quality will look like when creating it.
     The preview will change depending on what kind of quality you are creating (goods, curiosities, status, etc.)
     */
-
+    print(quality)
     if (quality.AssignToSlot !== null) { // Check if the quality is equipable
         const DECK = 102966;
         const AUXILARY = 102967;
@@ -132,7 +132,7 @@ function QualityTab() {
     */
     if (!domSetup) {
         Id = new CreateInput("Id", QuoteConvert(quality.Id))
-        Name = new CreateInput("Name", QuoteConvert(quality.name))
+        Name = new CreateInput("Name", QuoteConvert(quality.Name))
         Description = new CreateInput("Description", quality.Description)
         Image = new CreateInput("Image", quality.Image)
         Persistent = new CreateCheckbox("Persistent", quality.Persistent)
@@ -186,31 +186,33 @@ function QualityTab() {
 
             IsSlot = new CreateCheckbox("🔧IsSlot", quality.IsSlot)
 
-            if (quality.AssignToSlot == null) {
-                quality.AssignToSlot = qualityDefault
+            if (quality.AssignToSlot == null) { // Give AssignToSlot a value now so it can be displayed. Remove the value later.
+                quality.AssignToSlot = cloneDeep(qualityDefault)
             }
             AssignToSlotId = new CreateInput("🔧 AssignToSlot", QuoteConvert(quality.AssignToSlot.Id), "text", true)
 
-            EnhancementsAmount = new CreateInput("🔧Enhancements (non functional. Reason: https://tenor.com/view/cat-insane-gif-21702784)", meta.EnhancementsAmount, "number", true)
+            EnhancementsAmount = new CreateInput("🔧Enhancements", meta.EnhancementsAmount, "number", true)
             EnhancementsAmount.size(40, 22)
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
                 if (quality.Enhancements[i] == null) {
-                    quality.Enhancements[i] = enhancementsDefault
+                    quality.Enhancements[i] = cloneDeep(enhancementsDefault)
                 }
-                Enhancements[i] = {
+                Enh[i] = {
                     Level: null,
                     AssociatedQualityId: null,
                     Id: null
                 }
                 createDiv(`└ Enhancement ${i+1}: `)
-                Enhancements[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
-                Enhancements[i].AssociatedQualityId = new CreateInput("AssociatedQualityId", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
-                Enhancements[i].Id = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
+                Enh[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
+                Enh[i].AssociatedQualityId = new CreateInput("AssociatedQualityId", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
+                Enh[i].Id = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
                 createP() // Creates larger gap.
             }
 
-            UseEvent = new CreateInput("🔧UseEvent", QuoteConvert(quality.UseEvent !== null ? quality.UseEvent.Id : eventDefault.Id))
+            // print(eventDefault)
+            let event = cloneDeep(eventDefault)
+            UseEvent = new CreateInput("🔧UseEvent", QuoteConvert(quality.UseEvent !== null ? quality.UseEvent.Id : event.Id))
 
             createSpan("🔧DifficultyTestType: ")
             DifficultyTestType = createSelect()
@@ -272,11 +274,7 @@ function QualityTab() {
             })
         }
     }
-    for (let i = 0; i < Enhancements.length; i++) {
-        if (Enhancements[i].Level !== undefined) {
-            print("all values: " + Enhancements[i].Level.value())
-        }
-    }
+
     if (refresh) {
         // Save all quality values
         let IdValue = NullConvert(Id.value())
@@ -289,13 +287,13 @@ function QualityTab() {
         if (Nature.value() == "Status") {
             quality.Category = typeof CategoryStatus !== uninitialized ? CategoryStatus.value() : "Unspecified"
         } else if (Nature.value() == "Thing") {
-            quality.category = typeof CategoryThing !== uninitialized ? CategoryThing.value() : "Unspecified"
+            quality.Category = typeof CategoryThing !== uninitialized ? CategoryThing.value() : "Unspecified"
         }
 
         if (meta.AdvancedMode) {
             if (true /*typeof Notes !== uninitialized && typeof Tag !== uninitialized && typeof Cap !== uninitialized && typeof UsePyramidNumbers !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof AvailableAt !== uninitialized && typeof Ordering !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof UseEvent !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof DifficultyScaler !== uninitialized && typeof AllowedOn !== uninitialized && typeof LevelDescriptionText !== uninitialized && typeof ChangeDescriptionText !== uninitialized && LevelImageText !== uninitialized*/ ) {
-                quality.Notes = Notes.value()
-                quality.Tag = Tag.value()
+                quality.Notes = NullConvert(Notes.value())
+                quality.Tag = NullConvert(Tag.value())
                 let CapValue = NullConvert(Cap.value())
                 quality.Cap = CapValue !== null ? Number(CapValue) : CapValue
                 quality.UsePyramidNumbers = UsePyramidNumbers.value()
@@ -304,7 +302,7 @@ function QualityTab() {
                 }
                 let AssignToSlotValue = NullConvert(AssignToSlotId.value())
                 if (AssignToSlotValue !== null) {
-                    quality.AssignToSlot = qualityDefault
+                    quality.AssignToSlot = cloneDeep(qualityDefault)
                     quality.AssignToSlot.Id = Number(AssignToSlotValue)
                 } else {
                     quality.AssignToSlot = AssignToSlotValue
@@ -313,15 +311,29 @@ function QualityTab() {
                 quality.Ordering = Number(Ordering.value())
 
                 for (let i = 0; i < meta.EnhancementsAmount; i++) {
-                    quality.Enhancements[i].Level = Number(Enhancements[i].Level.value())
-                    quality.Enhancements[i].AssociatedQuality.Id = Number(Enhancements[i].AssociatedQualityId.value())
-                    quality.Enhancements[i].Id = Number(Enhancements[i].Id.value())
+                    let temp = cloneDeep(enhancementsDefault);
+                    // let temp = { ...enhancementsDefault }; // Using spread syntax
+
+                    temp.Level = Number(Enh[i].Level.value());
+                    temp.AssociatedQuality = cloneDeep(enhancementsDefault.AssociatedQuality);
+                    // temp.AssociatedQuality = { ...enhancementsDefault.AssociatedQuality }; // Using spread syntax
+                    temp.AssociatedQuality.Id = Number(Enh[i].AssociatedQualityId.value());
+                    temp.Id = Number(Enh[i].Id.value());
+                    temp.AssociatedQuality.Image = ""
+                    temp.AssociatedQuality.AllowedOn = "Unspecified"
+
+                    console.log(enhancementsDefault);
+                    console.log(temp);
+
+                    quality.Enhancements[i] = temp;
                 }
+
+
 
 
                 let UseEventValue = NullConvert(UseEvent.value())
                 if (UseEventValue !== null) {
-                    quality.UseEvent = eventDefault
+                    quality.UseEvent = cloneDeep(eventDefault)
                     quality.UseEvent.Id = Number(UseEvent.value())
                 } else {
                     quality.UseEvent = UseEventValue

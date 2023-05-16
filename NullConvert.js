@@ -15,3 +15,22 @@ function QuoteConvert(input) {
         return input
     }
 }
+
+// I won't even pretend I wrote this
+  
+  function cloneDeep(obj) {
+    if (typeof obj !== 'object' || obj === null) {
+      return obj;
+    }
+  
+    const clonedObj = Array.isArray(obj) ? [] : {};
+  
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        clonedObj[key] = cloneDeep(obj[key]);
+      }
+    }
+  
+    return clonedObj;
+  }
+  

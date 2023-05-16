@@ -1,5 +1,5 @@
 // When uncertain about a fields function, check the docs.
-const qualityDefault = { // The default values for all fields
+const qualityDefault = Object.freeze({ // The default values for all fields
     RelationshipCapable: false, // No effect, must be false
     OwnerName: "StoryCrafter", // No effect, but this makes it easy to detect mods made with StoryCrafter
     Description: "", // Description for the quality
@@ -21,7 +21,7 @@ const qualityDefault = { // The default values for all fields
     Persistent: false, // Whether this quality persists when you die
     QualitiesWhichAllowSecondChanceOnThis: [], // No effect
     Visible: true, // No effect
-    Enhancements: [], // Which qualities this quality alters when equiped
+    Enhancements: null, // Which qualities this quality alters when equiped
     EnhancementsDescription: null, // No effect
     AllowsSecondChancesOnChallengesForQuality: null, // No effect
     GivesTrophy: null, // No effect
@@ -36,11 +36,12 @@ const qualityDefault = { // The default values for all fields
     LevelImageText: null, // Unique images for different quality levels
     Name: null, // Name of your quality
     Id: null // Unique ID of this quality. Must be unique. Non nullable
-}
+})
 
-const enhancementsDefault = {
+const enhancementsDefault = Object.freeze({
     Level: null,
-    AssociatedQuality: qualityDefault,
+    AssociatedQuality: cloneDeep(qualityDefault),
+    // AssociatedQuality: qualityDefault,
     AssociatedQualityId: 0,
     QualityName: null,
     QualityDescription: null,
@@ -49,9 +50,9 @@ const enhancementsDefault = {
     QualityCategory: null,
     QualityAllowedOn: null,
     Id: null
-}
+})
 
-const eventDefault = {
+const eventDefault = Object.freeze({
     ChildBranches: [],
     ParentBranch: null,
     QualitiesAffected: [],
@@ -91,4 +92,4 @@ const eventDefault = {
     CanGoBack: false,
     Name: null,
     Id: null
-}
+})
