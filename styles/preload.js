@@ -9,7 +9,6 @@ function preload() {
     paperstack = loadImage(p + "paperstackgaz" + e)
     repair = loadImage(p + "repairgaz" + e)
     shipequipment = loadImage(p + "shipequipment" + e)
-    log = loadImage(p + "log" + e)
 
     let cms = "comingsoon/comingsoon"
     placeholder = {
