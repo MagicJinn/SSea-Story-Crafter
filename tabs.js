@@ -195,6 +195,9 @@ function QualityTab() {
             EnhancementsAmount.size(40, 22)
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                if(quality.Enhancements == null){
+                    quality.Enhancements = []
+                }
                 if (quality.Enhancements[i] == null) {
                     quality.Enhancements[i] = cloneDeep(enhancementsDefault)
                 }
