@@ -195,7 +195,7 @@ function QualityTab() {
             EnhancementsAmount.size(40, 22)
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
-                if(quality.Enhancements == null){
+                if (quality.Enhancements == null) {
                     quality.Enhancements = []
                 }
                 if (quality.Enhancements[i] == null) {
@@ -294,60 +294,58 @@ function QualityTab() {
         }
 
         if (meta.AdvancedMode) {
-            if (true /*typeof Notes !== uninitialized && typeof Tag !== uninitialized && typeof Cap !== uninitialized && typeof UsePyramidNumbers !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof AvailableAt !== uninitialized && typeof Ordering !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof UseEvent !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof DifficultyScaler !== uninitialized && typeof AllowedOn !== uninitialized && typeof LevelDescriptionText !== uninitialized && typeof ChangeDescriptionText !== uninitialized && LevelImageText !== uninitialized*/ ) {
-                quality.Notes = NullConvert(Notes.value())
-                quality.Tag = NullConvert(Tag.value())
-                let CapValue = NullConvert(Cap.value())
-                quality.Cap = CapValue !== null ? Number(CapValue) : CapValue
-                quality.UsePyramidNumbers = UsePyramidNumbers.value()
-                if (quality.UsePyramidNumbers && typeof PyramidNumberIncreaseLimit !== uninitialized) {
-                    quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
-                }
-                let AssignToSlotValue = NullConvert(AssignToSlotId.value())
-                if (AssignToSlotValue !== null) {
-                    quality.AssignToSlot = cloneDeep(qualityDefault)
-                    quality.AssignToSlot.Id = Number(AssignToSlotValue)
-                } else {
-                    quality.AssignToSlot = AssignToSlotValue
-                }
-                quality.AvailableAt = NullConvert(AvailableAt.value())
-                quality.Ordering = Number(Ordering.value())
-
-                for (let i = 0; i < meta.EnhancementsAmount; i++) {
-                    let temp = cloneDeep(enhancementsDefault);
-                    // let temp = { ...enhancementsDefault }; // Using spread syntax
-
-                    temp.Level = Number(Enh[i].Level.value());
-                    temp.AssociatedQuality = cloneDeep(enhancementsDefault.AssociatedQuality);
-                    // temp.AssociatedQuality = { ...enhancementsDefault.AssociatedQuality }; // Using spread syntax
-                    temp.AssociatedQuality.Id = Number(Enh[i].AssociatedQualityId.value());
-                    temp.Id = Number(Enh[i].Id.value());
-                    temp.AssociatedQuality.Image = ""
-                    temp.AssociatedQuality.AllowedOn = "Unspecified"
-
-                    console.log(enhancementsDefault);
-                    console.log(temp);
-
-                    quality.Enhancements[i] = temp;
-                }
-
-
-
-
-                let UseEventValue = NullConvert(UseEvent.value())
-                if (UseEventValue !== null) {
-                    quality.UseEvent = cloneDeep(eventDefault)
-                    quality.UseEvent.Id = Number(UseEvent.value())
-                } else {
-                    quality.UseEvent = UseEventValue
-                }
-                quality.DifficultyTestType = DifficultyTestType.value()
-                quality.DifficultyScaler = Number(DifficultyScaler.value())
-                quality.AllowedOn = AllowedOn.value()
-                quality.LevelDescriptionText = NullConvert(LevelDescriptionText.value())
-                quality.ChangeDescriptionText = NullConvert(ChangeDescriptionText.value())
-                quality.LevelImageText = NullConvert(LevelImageText.value())
+            quality.Notes = NullConvert(Notes.value())
+            quality.Tag = NullConvert(Tag.value())
+            let CapValue = NullConvert(Cap.value())
+            quality.Cap = CapValue !== null ? Number(CapValue) : CapValue
+            quality.UsePyramidNumbers = UsePyramidNumbers.value()
+            if (quality.UsePyramidNumbers && typeof PyramidNumberIncreaseLimit !== uninitialized) {
+                quality.PyramidNumberIncreaseLimit = PyramidNumberIncreaseLimit.value()
             }
+            let AssignToSlotValue = NullConvert(AssignToSlotId.value())
+            if (AssignToSlotValue !== null) {
+                quality.AssignToSlot = cloneDeep(qualityDefault)
+                quality.AssignToSlot.Id = Number(AssignToSlotValue)
+            } else {
+                quality.AssignToSlot = AssignToSlotValue
+            }
+            quality.AvailableAt = NullConvert(AvailableAt.value())
+            quality.Ordering = Number(Ordering.value())
+
+            for (let i = 0; i < meta.EnhancementsAmount; i++) {
+                let temp = cloneDeep(enhancementsDefault);
+                // let temp = { ...enhancementsDefault }; // Using spread syntax
+
+                temp.Level = Number(Enh[i].Level.value());
+                temp.AssociatedQuality = cloneDeep(enhancementsDefault.AssociatedQuality);
+                // temp.AssociatedQuality = { ...enhancementsDefault.AssociatedQuality }; // Using spread syntax
+                temp.AssociatedQuality.Id = Number(Enh[i].AssociatedQualityId.value());
+                temp.Id = Number(Enh[i].Id.value());
+                temp.AssociatedQuality.Image = ""
+                temp.AssociatedQuality.AllowedOn = "Unspecified"
+
+                console.log(enhancementsDefault);
+                console.log(temp);
+
+                quality.Enhancements[i] = temp;
+            }
+
+
+
+
+            let UseEventValue = NullConvert(UseEvent.value())
+            if (UseEventValue !== null) {
+                quality.UseEvent = cloneDeep(eventDefault)
+                quality.UseEvent.Id = Number(UseEvent.value())
+            } else {
+                quality.UseEvent = UseEventValue
+            }
+            quality.DifficultyTestType = DifficultyTestType.value()
+            quality.DifficultyScaler = Number(DifficultyScaler.value())
+            quality.AllowedOn = AllowedOn.value()
+            quality.LevelDescriptionText = NullConvert(LevelDescriptionText.value())
+            quality.ChangeDescriptionText = NullConvert(ChangeDescriptionText.value())
+            quality.LevelImageText = NullConvert(LevelImageText.value())
 
         }
         // Save meta values
