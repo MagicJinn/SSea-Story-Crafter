@@ -1,26 +1,22 @@
-function Button(input = {}) {
+function Button(input = {},callback) {
     let {
         x, // X coordinate of the button
         y, // Y coordinate of the button
         img,
         buttonText = "",
         tintColor,
-        url,
         buttonWidth = img.width,
         buttonHeight = img.height,
     } = input
 
-    let isPressed = false
     let isColliding = // "collision" detection
         scaledMouseX < x + buttonWidth / 2 &&
         scaledMouseX > x - buttonWidth / 2 &&
         scaledMouseY < y + buttonHeight / 2 &&
         scaledMouseY > y - buttonHeight / 2
+    let isPressed = isColliding && mouseIsPressed
     if (isColliding) { // The button is hovered over
         tint(tintColor)
-        if (mouseIsPressed) { // The button is pressed
-            isPressed = true
-        }
     }
     // Responsible for rendering the image
     imageMode(CENTER)
@@ -31,9 +27,8 @@ function Button(input = {}) {
     fill(0)
     text(buttonText, x, y) // Renders text
     if (isPressed) {
-        OpenUrl(url)
+        callback()
     }
-    return isPressed // Returns true or false
 }
 
 var linkDelay = 0
