@@ -6,14 +6,13 @@ function UI(mode) {
         case SETUP: // Only rendered once, can be overwritten by anything
             image(book, 0, tab.height)
             Tabs()
-            currentTab[0] = true
             break;
         case DRAW: // Always rendered
             imageMode(CORNER)
             image(pages, 0, tab.height)
             Tabs()
-            if (!currentTab.every((val, i) => val === previousTab[i])) {
-                previousTab = currentTab.slice()
+            if (currentTab !== previousTab) {
+                previousTab = currentTab
                 RefreshDom()
             }
             break;

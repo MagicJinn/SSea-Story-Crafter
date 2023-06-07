@@ -5,23 +5,16 @@ function Tabs() {
     const tabs = ["Info", "Qualities", "Stories", "Shops", "More"]
     const buttonWidth = 1.2
     for (let i = 0; i < tabs.length; i++) {
-        if (!currentTab[i]) {
-            currentTab[i] = Button({
-                x: 70 + ((tab.width + 12) * buttonWidth) * i,
-                y: 25,
-                buttonText: tabs[i],
-                img: tab,
-                buttonWidth: tab.width * buttonWidth,
-                tintColor: color(255, 255, 0)
-            })
-            if (currentTab[i]) {
-                for (let i2 = 0; i2 < tabs.length; i2++) {
-                    if (i2 !== i) {
-                        currentTab[i2] = false
-                    }
-                }
-            }
-        }
+        Button({
+            x: 70 + ((tab.width + 12) * buttonWidth) * i,
+            y: 25,
+            buttonText: tabs[i],
+            img: tab,
+            buttonWidth: tab.width * buttonWidth,
+            tintColor: color(255, 255, 0)
+        }, (/*callback*/) => {
+            currentTab = i
+        })
     }
 }
 
@@ -66,12 +59,14 @@ function InfoTab() {
                 teaser: buttons[i].teaser,
                 id: i
             }),
-            url: buttons[i].url,
             tintColor: color(255, 225, 0)
+        }, (/*callback*/) => {
+            OpenUrl(buttons[i].url)
         })
     }
 }
 
+// Beginning of the quality tab
 var quality = cloneDeep(qualityDefault)
 
 var meta = { // Values that are used in the UI, but not passed through to the json builder
@@ -82,6 +77,7 @@ var meta = { // Values that are used in the UI, but not passed through to the js
 
 var Enh = []
 
+// Because typeof == "undefined" is different from typeof == undefined
 const uninitialized = "undefined"
 
 var refresh = false
@@ -329,10 +325,6 @@ function QualityTab() {
 
                 quality.Enhancements[i] = temp;
             }
-
-
-
-
             let UseEventValue = NullConvert(UseEvent.value())
             if (UseEventValue !== null) {
                 quality.UseEvent = cloneDeep(eventDefault)
@@ -346,7 +338,6 @@ function QualityTab() {
             quality.LevelDescriptionText = NullConvert(LevelDescriptionText.value())
             quality.ChangeDescriptionText = NullConvert(ChangeDescriptionText.value())
             quality.LevelImageText = NullConvert(LevelImageText.value())
-
         }
         // Save meta values
         meta.AdvancedMode = AdvancedMode.value()

@@ -1,5 +1,13 @@
-let currentTab = []
-let previousTab = []
+const TAB = {
+    INFO: 0,
+    QUALITY: 1,
+    STORY: 2,
+    SHOPS: 3,
+    MORE: 4
+}
+var currentTab = TAB.INFO
+var previousTab = currentTab // To check whether the tab changes
+
 
 // Catches any errors in the program and shows you a prompt
 window.onerror = function (message, source, line, column, error) {
@@ -16,17 +24,23 @@ var domSetup = false
 
 function draw() {
     UI(DRAW)
-    if (currentTab[0]) {
-        InfoTab()
-    } else if (currentTab[1]) {
-        QualityTab()
-    } else if (currentTab[2]) {
-        StoryTab()
-    } else if (currentTab[3]) {
-        ShopsTab()
-    } else if (currentTab[4]){
-        ImageGaz()
-        PageTitle()
-        PageDescription()
+    switch (currentTab) {
+        case TAB.INFO:
+            InfoTab()
+            break
+        case TAB.QUALITY:
+            QualityTab()
+            break
+        case TAB.STORY:
+            StoryTab()
+            break
+        case TAB.SHOPS:
+            ShopsTab()
+            break
+        case TAB.MORE:
+            ImageGaz()
+            PageTitle()
+            PageDescription()
+            break
     }
 }
