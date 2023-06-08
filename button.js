@@ -1,4 +1,4 @@
-function Button(input = {},callback) {
+function Button(input = {}, callback) {
     let {
         x, // X coordinate of the button
         y, // Y coordinate of the button
@@ -14,11 +14,14 @@ function Button(input = {},callback) {
         scaledMouseX > x - buttonWidth / 2 &&
         scaledMouseY < y + buttonHeight / 2 &&
         scaledMouseY > y - buttonHeight / 2
-    let isPressed = isColliding && mouseIsPressed
+    if (isColliding && mouseIsPressed) {
+        callback()
+    }
+    
+    // Responsible for rendering the image
     if (isColliding) { // The button is hovered over
         tint(tintColor)
     }
-    // Responsible for rendering the image
     imageMode(CENTER)
     image(img, x, y, buttonWidth, buttonHeight) // Renders the image
     noTint()
@@ -26,13 +29,12 @@ function Button(input = {},callback) {
     textAlign(CENTER, CENTER)
     fill(0)
     text(buttonText, x, y) // Renders text
-    if (isPressed) {
-        callback()
-    }
+
 }
 
 var linkDelay = 0
-function OpenUrl(url){
+
+function OpenUrl(url) {
     if (url !== undefined && frameCount - linkDelay > 15) {
         window.open(url, "_blank")
         linkDelay = frameCount
