@@ -6,8 +6,6 @@ const TAB = {
     MORE: 4
 }
 var currentTab = TAB.INFO
-var previousTab = currentTab // To check whether the tab changes
-
 
 // Catches any errors in the program and shows you a prompt
 window.onerror = function (message, source, line, column, error) {

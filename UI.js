@@ -11,10 +11,6 @@ function UI(mode) {
             imageMode(CORNER)
             image(pages, 0, tab.height)
             Tabs()
-            if (currentTab !== previousTab) {
-                previousTab = currentTab
-                RefreshDom()
-            }
             break;
     }
 }

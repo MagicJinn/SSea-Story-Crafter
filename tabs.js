@@ -15,6 +15,7 @@ function Tabs() {
         }, ( /*callback*/ ) => {
             currentTab = i
             storyImage.length = 0
+            RefreshDom()
         })
     }
 }
