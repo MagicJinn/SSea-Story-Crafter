@@ -12,8 +12,9 @@ function Tabs() {
             img: tab,
             buttonWidth: tab.width * buttonWidth,
             tintColor: color(255, 255, 0)
-        }, (/*callback*/) => {
+        }, ( /*callback*/ ) => {
             currentTab = i
+            storyImage.length = 0
         })
     }
 }
@@ -57,10 +58,10 @@ function InfoTab() {
                 img: buttons[i].image,
                 title: buttons[i].title,
                 teaser: buttons[i].teaser,
-                id: i
+                index: i
             }),
             tintColor: color(255, 225, 0)
-        }, (/*callback*/) => {
+        }, ( /*callback*/ ) => {
             OpenUrl(buttons[i].url)
         })
     }
@@ -73,9 +74,8 @@ var meta = { // Values that are used in the UI, but not passed through to the js
     AdvancedMode: false, // Whether AdvancedMode is activated
     AssignToSlot: null,
     EnhancementsAmount: 0, // How many fields you have for Enhancements
+    Enhancements: []
 }
-
-var Enh = []
 
 // Because typeof == "undefined" is different from typeof == undefined
 const uninitialized = "undefined"
@@ -89,7 +89,6 @@ function QualityTab() {
     This contains examples of what your quality will look like when creating it.
     The preview will change depending on what kind of quality you are creating (goods, curiosities, status, etc.)
     */
-    print(quality)
     if (quality.AssignToSlot !== null) { // Check if the quality is equipable
         const DECK = 102966;
         const AUXILARY = 102967;
@@ -197,15 +196,15 @@ function QualityTab() {
                 if (quality.Enhancements[i] == null) {
                     quality.Enhancements[i] = cloneDeep(enhancementsDefault)
                 }
-                Enh[i] = {
+                meta.Enhancements[i] = {
                     Level: null,
                     AssociatedQualityId: null,
                     Id: null
                 }
                 createDiv(`└ Enhancement ${i+1}: `)
-                Enh[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
-                Enh[i].AssociatedQualityId = new CreateInput("AssociatedQualityId", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
-                Enh[i].Id = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
+                meta.Enhancements[i].Level = new CreateInput("Level", QuoteConvert(quality.Enhancements[i].Level))
+                meta.Enhancements[i].AssociatedQualityId = new CreateInput("AssociatedQualityId", QuoteConvert(quality.Enhancements[i].AssociatedQuality.Id))
+                meta.Enhancements[i].Id = new CreateInput("Id", QuoteConvert(quality.Enhancements[i].Id))
                 createP() // Creates larger gap.
             }
 
@@ -237,7 +236,7 @@ function QualityTab() {
         // Button to create the Json
         createP()
         finishButton = createButton("Create Json")
-        finishButton.mouseClicked(function () {
+        finishButton.mouseClicked(( /*callback*/ ) => {
             refresh = true
             save = true
         })
@@ -245,15 +244,15 @@ function QualityTab() {
     }
 
     // Check for changes that require a refresh
-    Nature.changed(function () {
+    Nature.changed(( /*callback*/ ) => {
         refresh = true
     })
     if (Nature == "Status") {
-        CategoryStatus.changed(function () {
+        CategoryStatus.changed(( /*callback*/ ) => {
             refresh = true
         })
     } else if (Nature == "Thing") {
-        CategoryThing.changed(function () {
+        CategoryThing.changed(( /*callback*/ ) => {
             refresh = true
         })
     }
@@ -261,16 +260,20 @@ function QualityTab() {
     AdvancedMode.changed()
 
     if (meta.AdvancedMode) {
-        if (typeof UsePyramidNumbers !== uninitialized && typeof IsSlot !== uninitialized && typeof AssignToSlotId !== uninitialized && typeof EnhancementsAmount !== uninitialized && typeof DifficultyTestType !== uninitialized && typeof AllowedOn !== uninitialized) {
-            UsePyramidNumbers.changed()
-            AssignToSlotId.changed()
-            EnhancementsAmount.changed()
-            DifficultyTestType.changed(function () {
-                refresh = true
-            })
-            AllowedOn.changed(function () {
-                refresh = true
-            })
+        UsePyramidNumbers.changed()
+        AssignToSlotId.changed()
+        EnhancementsAmount.changed()
+        DifficultyTestType.changed(( /*callback*/ ) => {
+            refresh = true
+        })
+        AllowedOn.changed(( /*callback*/ ) => {
+            refresh = true
+        })
+        // Checks whether category is "goods" and disables Cap and UsePyramidNumbers
+        if (quality.Nature == "Thing") {
+            let disable = CategoryThing.value() == "Goods"
+            Cap.disabled(disable)
+            UsePyramidNumbers.disabled(disable)
         }
     }
 
@@ -310,19 +313,12 @@ function QualityTab() {
 
             for (let i = 0; i < meta.EnhancementsAmount; i++) {
                 let temp = cloneDeep(enhancementsDefault);
-                // let temp = { ...enhancementsDefault }; // Using spread syntax
-
-                temp.Level = Number(Enh[i].Level.value());
+                temp.Level = Number(meta.Enhancements[i].Level.value());
                 temp.AssociatedQuality = cloneDeep(enhancementsDefault.AssociatedQuality);
-                // temp.AssociatedQuality = { ...enhancementsDefault.AssociatedQuality }; // Using spread syntax
-                temp.AssociatedQuality.Id = Number(Enh[i].AssociatedQualityId.value());
-                temp.Id = Number(Enh[i].Id.value());
+                temp.AssociatedQuality.Id = Number(meta.Enhancements[i].AssociatedQualityId.value());
+                temp.Id = Number(meta.Enhancements[i].Id.value());
                 temp.AssociatedQuality.Image = ""
                 temp.AssociatedQuality.AllowedOn = "Unspecified"
-
-                console.log(enhancementsDefault);
-                console.log(temp);
-
                 quality.Enhancements[i] = temp;
             }
             let UseEventValue = NullConvert(UseEvent.value())

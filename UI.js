@@ -19,22 +19,23 @@ function UI(mode) {
     }
 }
 
-let combinedImage = []
+var storyImage = []
 
 function Story(input = {}) {
     let {
         img = placeholder.default,
             title = "Title (required)",
             teaser = "",
-            id
+            index
     } = input
 
     let w = story.width
     let h = story.height
-    if (combinedImage[id] == undefined) {
-        combinedImage[id] = createImage(w, h)
-        combinedImage[id].copy(story, 0, 0, w, h, 0, 0, w, h)
-        combinedImage[id].copy(img, 0, 0, img.width, img.height, 12, 7, 40, 52)
+
+    if (storyImage[index] == undefined) {
+        storyImage[index] = createImage(w, h)
+        storyImage[index].copy(story, 0, 0, w, h, 0, 0, w, h)
+        storyImage[index].copy(img, 0, 0, img.width, img.height, 12, 7, 40, 52)
         let textLayer = createGraphics(w, h)
         textLayer.textFont(Fontin.Bold)
         textLayer.textSize(18)
@@ -42,9 +43,9 @@ function Story(input = {}) {
         textLayer.textFont(Fontin.Regular)
         textLayer.textSize(15)
         textLayer.text(teaser, 65, 44, 290)
-        combinedImage[id].copy(textLayer, 0, 0, w, h, 0, 0, w, h)
+        storyImage[index].copy(textLayer, 0, 0, w, h, 0, 0, w, h)
     }
-    return combinedImage[id]
+    return storyImage[index]
 }
 
 
