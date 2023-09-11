@@ -1,5 +1,5 @@
 // When uncertain about a fields function, check the docs.
-const qualityDefault = Object.freeze({ // The default values for all fields
+const qualityDefault = { // The default values for all fields
     RelationshipCapable: false, // No effect, must be false
     OwnerName: "StoryCrafter", // No effect, but this makes it easy to detect mods made with StoryCrafter
     Description: "", // Description for the quality
@@ -36,9 +36,9 @@ const qualityDefault = Object.freeze({ // The default values for all fields
     LevelImageText: null, // Unique images for different quality levels
     Name: null, // Name of your quality
     Id: null // Unique ID of this quality. Must be unique. Non nullable
-})
+}
 
-const enhancementsDefault = Object.freeze({
+const enhancementsDefault = {
     Level: null,
     AssociatedQuality: cloneDeep(qualityDefault),
     // AssociatedQuality: qualityDefault,
@@ -50,9 +50,9 @@ const enhancementsDefault = Object.freeze({
     QualityCategory: null,
     QualityAllowedOn: null,
     Id: null
-})
+}
 
-const eventDefault = Object.freeze({
+const eventDefault = {
     ChildBranches: [],
     ParentBranch: null,
     QualitiesAffected: [],
@@ -92,4 +92,4 @@ const eventDefault = Object.freeze({
     CanGoBack: false,
     Name: null,
     Id: null
-})
+}
