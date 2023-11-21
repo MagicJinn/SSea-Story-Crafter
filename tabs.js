@@ -1,4 +1,6 @@
 function Tabs() {
+
+
     textAlign(CENTER, CENTER)
     textSize(16)
     textFont(Fontin.SmallCaps)
@@ -11,7 +13,8 @@ function Tabs() {
             buttonText: tabs[i],
             img: tab,
             buttonWidth: tab.width * buttonWidth,
-            tintColor: color(255, 255, 0)
+            overrideColor: currentTab == i ? color(255, 255, 0) : undefined,
+            hoverColor: color(255, 255, 0)
         }, ( /*callback*/ ) => {
             currentTab = i
             storyImage.length = 0
@@ -61,7 +64,7 @@ function InfoTab() {
                 teaser: buttons[i].teaser,
                 index: i
             }),
-            tintColor: color(255, 225, 0)
+            hoverColor: color(255, 225, 0)
         }, ( /*callback*/ ) => {
             OpenUrl(buttons[i].url)
         })

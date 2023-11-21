@@ -1,27 +1,40 @@
-function Button(input = {}, callback) {
+function Button(input = { /* Required and optional parameters */ }, callback) {
     let {
-        x, // X coordinate of the button
-        y, // Y coordinate of the button
+        x,
+        y,
+        // Coordinates of the button
+
         img,
         buttonText = "",
-        tintColor,
+        // Image and text of the button
+
+        hoverColor = hoverColor,
+        overrideColor,
+        // Hovercolor and a possible override color
+
         buttonWidth = img.width,
         buttonHeight = img.height,
+        // Width and height of the button
     } = input
 
+    // Handles button logic
     let isColliding = // "collision" detection
         scaledMouseX < x + buttonWidth / 2 &&
         scaledMouseX > x - buttonWidth / 2 &&
         scaledMouseY < y + buttonHeight / 2 &&
         scaledMouseY > y - buttonHeight / 2
-    if (isColliding && mouseIsPressed) {
-        callback()
+
+    if /* The mouse */ (mouseIsPressed && isColliding) {
+        /* Execute the provided */ callback() /* function */
     }
-    
-    // Responsible for rendering the image
-    if (isColliding) { // The button is hovered over
-        tint(tintColor)
-    }
+
+    // Renders the image
+    if /* Override color exists */ (overrideColor) {
+        tint(overrideColor) // Always colors the image regardless of hoverColor
+    } else /* Override color does not exist */
+        if /* Mouse collides with the button*/ (isColliding) {
+            tint(hoverColor) //
+        }
     imageMode(CENTER)
     image(img, x, y, buttonWidth, buttonHeight) // Renders the image
     noTint()
@@ -29,15 +42,11 @@ function Button(input = {}, callback) {
     textAlign(CENTER, CENTER)
     fill(0)
     text(buttonText, x, y) // Renders text
-
 }
 
-var linkDelay = 0
-
 function OpenUrl(url) {
-    if (url !== undefined && frameCount - linkDelay > 15) {
+    if /* The URL is not undefined */ (url !== undefined) {
         window.open(url, "_blank")
-        linkDelay = frameCount
-        scaledMouseX = scaledMouseY = 0
+        scaledMouseX = scaledMouseY = /* Changes the mouse position to */ 0 /* so the button isn't clicked multiple times */
     }
 }
