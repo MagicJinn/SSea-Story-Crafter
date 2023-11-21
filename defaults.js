@@ -93,3 +93,8 @@ const eventDefault = {
     Name: null,
     Id: null
 }
+
+const exchangeDefault = {
+    Name: null,
+    Image: "comingsoon"
+}
