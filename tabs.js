@@ -1,6 +1,4 @@
 function Tabs() {
-
-
     textAlign(CENTER, CENTER)
     textSize(16)
     textFont(Fontin.SmallCaps)
@@ -13,9 +11,9 @@ function Tabs() {
             buttonText: tabs[i],
             img: tab,
             buttonWidth: tab.width * buttonWidth,
-            overrideColor: currentTab == i ? color(255, 255, 0) : undefined,
-            hoverColor: color(255, 255, 0)
-        }, ( /*callback*/ ) => {
+            /* Provide an */ overrideColor: /* if the */ currentTab == i ? /* and set the color to yellow */ color(255, 255, 0) : /* Otherwise */ undefined /* will choose the default */,
+            /* Provide a */ hoverColor: color(255, 255, 0) /* to use when the button is hovered over */
+        }, ( /* callback */ ) => {
             currentTab = i
             storyImage.length = 0
             RefreshDom()
