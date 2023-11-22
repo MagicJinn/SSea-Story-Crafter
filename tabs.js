@@ -11,8 +11,10 @@ function Tabs() {
             buttonText: tabs[i],
             img: tab,
             buttonWidth: tab.width * buttonWidth,
-            /* Provide an */ overrideColor: /* if the */ currentTab == i ? /* and set the color to yellow */ color(255, 255, 0) : /* Otherwise */ undefined /* will choose the default */,
-            /* Provide a */ hoverColor: color(255, 255, 0) /* to use when the button is hovered over */
+            /* Provide an */
+            overrideColor: /* if the */ currentTab == i ? /* and set the color to yellow */ color(255, 255, 0) : /* Otherwise */ undefined /* will choose the default */ ,
+            /* Provide a */
+            hoverColor: color(255, 255, 0) /* to use when the button is hovered over */
         }, ( /* callback */ ) => {
             currentTab = i
             storyImage.length = 0
@@ -91,7 +93,7 @@ function QualityTab() {
     This contains examples of what your quality will look like when creating it.
     The preview will change depending on what kind of quality you are creating (goods, curiosities, status, etc.)
     */
-    if (quality.AssignToSlot !== null) { // Check if the quality is equipable
+    if /* The quality is equipable */ (quality.AssignToSlot !== null) {
         const DECK = 102966;
         const AUXILARY = 102967;
         const BRIDGE = 102964;
@@ -99,7 +101,7 @@ function QualityTab() {
         const FORWARD = 102968;
         const AFT = 102965;
 
-        if ([DECK, AUXILARY, BRIDGE, ENGINES, FORWARD, AFT].includes(quality.AssignToSlot.Id)) { // Checks if it's ship equipment
+        if /* The quality is ship equipment */ ([DECK, AUXILARY, BRIDGE, ENGINES, FORWARD, AFT].includes(quality.AssignToSlot.Id)) {
             image(shipequipment, 200, 350);
             switch (quality.AssignToSlot.Id) {
                 case DECK:
@@ -117,7 +119,7 @@ function QualityTab() {
             }
         } else {}
 
-    } else { // Quality is not defined yet.
+    } else /* Quality is not defined yet */ {
         ImageGaz(repair)
         PageTitle("Under Construction")
         PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
@@ -210,7 +212,6 @@ function QualityTab() {
                 createP() // Creates larger gap.
             }
 
-            // print(eventDefault)
             let event = cloneDeep(eventDefault)
             UseEvent = new CreateInput("🔧UseEvent", QuoteConvert(quality.UseEvent !== null ? quality.UseEvent.Id : event.Id))
 
@@ -259,7 +260,7 @@ function QualityTab() {
         })
     }
 
-    AdvancedMode.changed()
+    AdvancedMode.changed( /* Fields created with the CreateCheckbox function will always refresh when changed is called */ )
 
     if (meta.AdvancedMode) {
         UsePyramidNumbers.changed()
