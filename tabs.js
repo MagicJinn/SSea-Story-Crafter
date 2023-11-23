@@ -354,13 +354,13 @@ function QualityTab() {
 }
 
 function StoryTab() {
-    ImageGaz(repair)
-    PageTitle("Under Construction")
-    PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
-}
-
-function ShopsTab() {
     ImageGaz()
     PageTitle()
     PageDescription()
+}
+
+function ShopsTab() {
+    ImageGaz(repair)
+    PageTitle("Under Construction")
+    PageDescription("\"I don't think this is engineering any more,\" the Mechanic confides. \"Possibly it's witchcraft. But I don't really mind.\" He rubs his hands.")
 }
