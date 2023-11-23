@@ -3,7 +3,7 @@ const qualityDefault = { // The default values for all fields
     RelationshipCapable: false, // No effect, must be false
     OwnerName: "StoryCrafter", // No effect, but this makes it easy to detect mods made with StoryCrafter
     Description: "", // Description for the quality
-    Image: "comingsoon", // Name of the image located in "%appdata%\..\LocalLow\Failbetter Games\Sunless Sea\images\sn\icons", without the extension or size indicator (small/gaz)
+    Image: "comingsoon", // Name of the image located in "%appdata%\..\LocalLow\Failbetter Games\Sunless Sea\images\sn\icons", without the extension (.png) or size indicator (small/gaz)
     Notes: null, // No effects, used for notes
     Tag: null, // Usually unused, useful for organising qualities
     Cap: null, // The maximum possible level a quality can have. Not supported for qualities in the Goods category (must be null)
@@ -96,5 +96,32 @@ const eventDefault = {
 
 const exchangeDefault = {
     Name: null,
-    Image: "comingsoon"
+    Image: "comingsoon",
+    Description: "",
+    Shops: [],
+    SettingIds: [],
+    Id: null
+}
+
+const shopDefault = {
+    Name: null,
+    Image: comingsoon, // Name of the image located in "%appdata%\..\LocalLow\Failbetter Games\Sunless Sea\images\sn\icons", without the extension (.png) or size indicator (small/gaz)
+    Description: "",
+    Ordering: 0,
+    Exchange: null, // No effect
+    Availabilities:[],
+    UnlockCost: [],
+    Id: null
+}
+
+const AvailabilityDefault = {
+    Quality: cloneDeep(qualityDefault),
+    Cost: 0,
+    SellPrice: 0,
+    InShop: null, // No effect
+    PurchaseQuality: cloneDeep(qualityDefault), // Quality used as payment (?)
+    BuyMessage: null, // No effect (?)
+    SellMessage: null, // No effect (?)
+    SaleDescription: null, // No effect (?)
+    Id: null
 }
