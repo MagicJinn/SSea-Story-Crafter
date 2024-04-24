@@ -21,7 +21,7 @@ const qualityDefault = { // The default values for all fields
     Persistent: false, // Whether this quality persists when you die
     QualitiesWhichAllowSecondChanceOnThis: [], // No effect
     Visible: true, // No effect
-    Enhancements: null, // Which qualities this quality alters when equiped
+    Enhancements: [], // Which qualities this quality alters when equiped
     EnhancementsDescription: null, // No effect
     AllowsSecondChancesOnChallengesForQuality: null, // No effect
     GivesTrophy: null, // No effect
