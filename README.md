@@ -1,5 +1,8 @@
 <h1 align="center">SSea Story Crafter</h1>
 
+# **This repository is now archived, as it is mostly made obsolete by [SDLS](http://github.com/MagicJinn/SDLS)**
+
+
 ## **Currently in developement and only semi functional!**
 
 Create your own Sunless Sea stories and mods with this (relatively) easy to use UI. Currently supports qualities, with
